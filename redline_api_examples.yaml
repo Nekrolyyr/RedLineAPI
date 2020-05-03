@@ -4244,142 +4244,188 @@ components:
     Klienteninfos:
       title: Klienteninfos
       type: object
+      x-flexClass: RedlineKlientInfosRMO
       description: 'Klienteninformationen Teil Persoenliche Daten, Adresse, Signalelemente'
       properties:
-        status:
-          type: object
+        model:
           properties:
             status:
-              type: string
-            eintritt:
-              type: string
-            austritt:
-              type: string
-        daten:
-          type: object
-          properties:
-            nummer:
-              type: string
-            vorname:
-              type: string
-            nachname:
-              type: string
-            kuerzel:
-              type: string
-            gebdatum:
-              type: string
-            zivilstand:
-              type: string
-            sprache:
-              type: string
-            nationalitt:
-              type: string
-            aufenthaltsbewilligung:
-              type: string
-            konfession:
-              type: string
-        ahv_ch:
-          type: string
-        ahv_fl:
-          type: string
-        einwohnerKontrolle:
-          type: object
-          properties:
-            schriftenOrt:
-              type: string
-            schriftenKanton:
-              type: string
-            heimatort:
-              type: string
-            geburtsort:
-              type: string
-        bank:
-          type: object
-          properties:
-            postkonto:
-              type: string
-            name:
-              type: string
-            ort:
-              type: string
-            kontoNr:
-              type: string
-            kontoIBAN:
-              type: string
-            inhaber:
-              type: string
-        verfuegung:
-          type: object
-          properties:
-            datum:
-              type: string
-            ablage:
-              type: string
-            nutungsrechte:
-              type: string
-            vorhanden:
-              type: string
-        adresse:
-          type: object
-          properties:
-            coFirma:
-              type: string
-            strasse:
-              type: string
-            strasseZusatz:
-              type: string
-            postfach:
-              type: string
-            plz:
-              type: string
-            ort:
-              type: string
-            kanton:
-              type: string
-            land:
-              type: string
-        kontakt:
-          type: object
-          properties:
-            tel1:
-              type: string
-            tel2:
-              type: string
-            mobile:
-              type: string
-            email:
-              type: string
-        signalelemente:
-          type: object
-          properties:
-            geschlecht:
-              type: string
-            groesse:
-              type: string
-            gewicht:
-              type: string
-            augenfarbe:
-              type: string
-            haarfarbe:
-              type: string
-            haarlaenge:
-              type: string
-            statur:
-              type: string
-            besonderes:
-              type: string
-            bevorzugOrt:
-              type: string
-            foto:
               type: object
+              x-flexClass: RedlineKlientStatusRMO
               properties:
-                headId:
+                status:
+                  type: object
+                  x-flexType: enum
+                  properties:
+                    key:
+                      type: string
+                    label:
+                      type: string
+                eintritt:
                   type: string
-                url:
+                  format: date
+                austritt:
                   type: string
-      x-tags:
-        - Klient
-      x-examples: {}
+                  format: date
+            daten:
+              type: object
+              x-flexClass: RedlineKlientDatenRMO
+              properties:
+                nummer:
+                  type: string
+                vorname:
+                  type: string
+                nachname:
+                  type: string
+                kuerzel:
+                  type: string
+                gebdatum:
+                  type: string
+                  format: date
+                zivilstand:
+                  type: object
+                  x-flexType: ref
+                  properties:
+                    headId:
+                      type: string
+                    label:
+                      type: string
+                sprache:
+                  type: string
+                nationalitaet:
+                  type: string
+                aufenthaltsbewilligung:
+                  type: string
+                konfession:
+                  type: object
+                  x-flexType: ref
+                  properties:
+                    headId:
+                      type: string
+                    label:
+                      type: string
+            ahv_ch:
+              type: string
+            ahv_fl:
+              type: string
+            einwohnerKontrolle:
+              type: object
+              x-flexClass: RedlineKlientEinwohnerkontrolleRMO
+              properties:
+                schriftenOrt:
+                  type: string
+                schriftenKanton:
+                  type: object
+                  x-flexType: enum
+                  properties:
+                    key:
+                      type: string
+                    label:
+                      type: string
+                heimatort:
+                  type: string
+                geburtsort:
+                  type: string
+            bank:
+              type: object
+              x-flexClass: RedlineKlientBankRMO
+              properties:
+                postkonto:
+                  type: string
+                name:
+                  type: string
+                ort:
+                  type: string
+                kontoNr:
+                  type: string
+                kontoIBAN:
+                  type: string
+                inhaber:
+                  type: string
+            verfuegung:
+              type: object
+              x-flexClass: RedlineKlientVerfuegungRMO
+              properties:
+                datum:
+                  type: string
+                  format: date
+                ablage:
+                  type: string
+                nutungsrechte:
+                  type: string
+                vorhanden:
+                  type: string
+            adresse:
+              type: object
+              x-flexClass: RedlineKlientAdresseRMO
+              properties:
+                coFirma:
+                  type: string
+                strasse:
+                  type: string
+                strasseZusatz:
+                  type: string
+                postfach:
+                  type: string
+                plz:
+                  type: string
+                ort:
+                  type: string
+                kanton:
+                  type: string
+                land:
+                  type: string
+            kontakt:
+              type: object
+              x-flexClass: RedlineKlientKontaktRMO
+              properties:
+                tel1:
+                  type: string
+                tel2:
+                  type: string
+                mobile:
+                  type: string
+                email:
+                  type: string
+            signalelemente:
+              type: object
+              x-flexClass: RedlineKlientSignalementeRMO
+              properties:
+                geschlecht:
+                  type: object
+                  x-flexType: enum
+                  properties:
+                    key:
+                      type: string
+                    label:
+                      type: string
+                groesse:
+                  type: string
+                gewicht:
+                  type: string
+                augenfarbe:
+                  type: string
+                haarfarbe:
+                  type: string
+                haarlaenge:
+                  type: string
+                statur:
+                  type: string
+                besonderes:
+                  type: string
+                bevorzugOrt:
+                  type: string
+                foto:
+                  type: object
+                  x-flexType: fileRef
+                  properties:
+                    headId:
+                      type: string
+                    url:
+                      type: string
+          x-tags:
+            - Klient
+          x-examples: {}
     Klientennotfall:
       title: Klientennotfall
       type: object
