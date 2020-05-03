@@ -4429,106 +4429,121 @@ components:
     Klientennotfall:
       title: Klientennotfall
       type: object
+      x-flexClass: RedlineKlientNotfallRMO
       description: Klienteninformationen Teil Notfallinformationen
       properties:
-        diagnose:
-          type: string
-        suchtmittel:
-          type: string
-        allgemein:
-          type: string
-        massnahmen:
-          type: string
+        model:
+          properties:
+            diagnose:
+              type: string
+            suchtmittel:
+              type: string
+            allgemein:
+              type: string
+            massnahmen:
+              type: string
       x-tags:
         - Klient
     Klientenversicherung:
       title: Klientenversicherung
       type: object
+      x-flexClass: RedlineKlientVersicherungRMO
       description: 'Klienteninformationen Teil Krankenkasse, Versicherung'
       properties:
-        kvg:
-          type: object
+        model:
           properties:
-            name:
-              type: string
-            sektion:
-              type: string
-            nummer:
-              type: string
-            bagNummer:
-              type: string
-            kartenNummer:
-              type: string
-            tel:
-              type: string
-            email:
-              type: string
-            taggeld:
-              type: boolean
-            bemerkungen:
-              type: string
-        vvg:
-          type: object
-          properties:
-            name:
-              type: string
-            sektion:
-              type: string
-            nummer:
-              type: string
-            tel:
-              type: string
-            email:
-              type: string
-        unfall:
-          type: object
-          properties:
-            details:
-              type: string
-            email:
-              type: string
-        haftpflicht:
-          type: object
-          properties:
-            details:
-              type: string
-            email:
-              type: string
-        iv:
-          type: object
-          properties:
-            details:
-              type: string
-            email:
-              type: string
-        ergaenzungsleistungen:
-          type: object
-          properties:
-            erhaltet:
-              type: boolean
-            bemerkungen:
-              type: string
+            kvg:
+              type: object
+              x-flexClass: RedlineKlientKVGRMO
+              properties:
+                name:
+                  type: string
+                sektion:
+                  type: string
+                nummer:
+                  type: string
+                bagNummer:
+                  type: string
+                kartenNummer:
+                  type: string
+                tel:
+                  type: string
+                email:
+                  type: string
+                taggeld:
+                  type: boolean
+                bemerkungen:
+                  type: string
+            vvg:
+              type: object
+              x-flexClass: RedlineKlientVVGRMO
+              properties:
+                name:
+                  type: string
+                sektion:
+                  type: string
+                nummer:
+                  type: string
+                tel:
+                  type: string
+                email:
+                  type: string
+            unfall:
+              type: object
+              x-flexClass: RedlineKlientUnfallRMO
+              properties:
+                details:
+                  type: string
+                email:
+                  type: string
+            haftpflicht:
+              x-flexClass: RedlineKlientHaftpflichtRMO
+              type: object
+              properties:
+                details:
+                  type: string
+                email:
+                  type: string
+            iv:
+              type: object
+              x-flexClass: RedlineKlientIVRMO
+              properties:
+                details:
+                  type: string
+                email:
+                  type: string
+            ergaenzungsleistungen:
+              x-flexClass: RedlineKlientErgaenzungsLeistRMO
+              type: object
+              properties:
+                erhaltet:
+                  type: boolean
+                bemerkungen:
+                  type: string
       x-tags:
         - Klient
     Klientensituation:
       title: Klientensituation
       type: object
+      x-flexClass: RedlineKlientSituationRMO
       description: Klienteninformationen Teil Anamnese
       properties:
-        rueckblick:
-          type: string
-        klinikaufenthalte:
-          type: string
-        wohnsituation:
-          type: string
-        tagesablauf:
-          type: string
-        soziales:
-          type: string
-        schwierigkeiten:
-          type: string
-        besonderes:
-          type: string
+        model:
+          properties:
+            rueckblick:
+              type: string
+            klinikaufenthalte:
+              type: string
+            wohnsituation:
+              type: string
+            tagesablauf:
+              type: string
+            soziales:
+              type: string
+            schwierigkeiten:
+              type: string
+            besonderes:
+              type: string
       x-tags:
         - Klient
     Klientenumfeld:
