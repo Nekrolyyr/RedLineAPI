@@ -1,0 +1,5196 @@
+openapi: 3.0.1
+info:
+  title: Redline API
+  description: 'Klienten auflisten, Tages- und Verlaufsjournal anzeigen, Journaleintraege erfassen, Medikation.'
+  version: '2.0'
+  termsOfService: ''
+  contact:
+    name: Redline Software AG
+    url: 'http://www.redline-software.ch'
+    email: info@redline-software.ch
+  license:
+    name: ''
+servers:
+  - url: 'https://redline.software/redline/index.php/Redline/Demo/Rest'
+    description: Liveserver
+  - url: 'https://betatest.servline.ch/redline_test/index.php/Redline/Demo/Rest'
+    description: Betaserver
+  - url: 'http://localhost/Start/web.php/Redline/Demo/Rest/'
+    description: Lokale Entwicklung
+paths:
+  /v1/user/login:
+    post:
+      operationId: RedlineUserRest.login
+      tags:
+        - Benutzer
+      summary: Einloggen mit Benutzer und Passwort
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Login-Request'
+        description: ''
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Login-Response'
+              examples:
+                success:
+                  value:
+                    data:
+                      currentBereichId: '2'
+                      hasMobilePremium: true
+                    status: Ok
+                    message: LOGIN SUCCESSFUL
+                    messageList: []
+                    details: {}
+        '409':
+          description: conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error-Response'
+              examples:
+                login fail:
+                  value:
+                    status: Error
+                    message: LOGIN FAILED
+                    messageList: []
+                    details: []
+  /v1/user/logout:
+    post:
+      operationId: RedlineUserRest.logout
+      tags:
+        - Benutzer
+      summary: Ausloggen
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ok-Response'
+        '409':
+          description: conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error-Response'
+  /v1/user/setbereich:
+    post:
+      operationId: RedlineUserRest.setBereich
+      tags:
+        - Benutzer
+      summary: Aktuellen Bereich setzen
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetBereich-Request'
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ok-Response'
+        '409':
+          description: conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error-Response'
+  /v1/user/current:
+    get:
+      operationId: RedlineUserRest.current
+      tags:
+        - Benutzer
+      summary: Daten des aktuell eingeloggten Benutzers laden.
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+              examples:
+                root:
+                  value:
+                    model:
+                      headId: '1'
+                      login: Root
+                      nameFirst: Beat
+                      nameLast: Binotto
+                      kuerzel: RT
+                      geburtsdatum: null
+        '409':
+          description: conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error-Response'
+  /v1/user/status:
+    get:
+      operationId: RedlineUserRest.status
+      tags:
+        - Benutzer
+      summary: Aktuelle Status-Werte ermitteln
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserStatus-Response'
+  /v1/bereich:
+    get:
+      operationId: RedlineBereichRest.GetCollection
+      tags:
+        - Bereich
+      parameters:
+        - name: context
+          in: query
+          schema:
+            type: string
+            enum:
+              - accessible
+          description: 'accessible: liefert nur Bereiche die der aktuelle User betreten darf'
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BereichCollection'
+              examples:
+                Bereiche:
+                  value:
+                    data:
+                      - model:
+                          headId: '12'
+                          name: Aussenwohnung Zwyslen
+                          text: ''
+                      - model:
+                          headId: '3'
+                          name: Externat Sonnberg
+                          text: ''
+                      - model:
+                          headId: '13'
+                          name: IMPORT
+                          text: ''
+                      - model:
+                          headId: '14'
+                          name: ImportTestDreischiibe
+                          text: ''
+                      - model:
+                          headId: '6'
+                          name: Integrative Arbeitsplätze
+                          text: ''
+                      - model:
+                          headId: '5'
+                          name: Trainingswohnungen
+                          text: ''
+                      - model:
+                          headId: '9'
+                          name: Verwaltung
+                          text: Kaderleute aus dem p
+                      - model:
+                          headId: '15'
+                          name: Werkstatt
+                          text: ''
+                      - model:
+                          headId: '2'
+                          name: Windspiel Mistral
+                          text: ''
+                      - model:
+                          headId: '11'
+                          name: Wohnen 3
+                          text: ''
+                      - model:
+                          headId: '8'
+                          name: Wohngruppe 2
+                          text: 8 BewohnerInnen
+                      - model:
+                          headId: '1'
+                          name: Wohngruppe 3
+                          text: ''
+                      - model:
+                          headId: '16'
+                          name: Wohngruppe 4
+                          text: ''
+                      - model:
+                          headId: '4'
+                          name: Wohngruppe Liestal
+                          text: Aussenwohngruppe 5 Personen
+                      - model:
+                          headId: '10'
+                          name: Wohnheim
+                          text: Beispieltext
+  '/v1/bereich/{bereichId}':
+    parameters:
+      - name: bereichId
+        description: bereichId
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: RedlineBereichRest.GetEntity
+      tags:
+        - Bereich
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bereich'
+              examples:
+                bereich 2:
+                  value:
+                    model:
+                      headId: '2'
+                      name: Windspiel Mistral
+                      text: ''
+        '404':
+          description: not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFound-Response'
+  '/v1/bereich/{bereichId}/klient':
+    parameters:
+      - name: bereichId
+        description: bereichId
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: RedlineKlientRest.GetCollection
+      tags:
+        - Klient
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KlientCollection'
+              examples:
+                klienten:
+                  value:
+                    data:
+                      - model:
+                          headId: '510'
+                          nachname: Ajazi
+                          vorname: Romedi
+                          kuerzel: RAjaz
+                          heimNummer: '10075'
+                          foto:
+                            headId: 68_Ajazi07151350.png
+                            url: 'https://betatest.servline.ch/redline_test/index.php/Redline/Demo/Rest//v1/bereich/2/klient/../../../../../Res/FileBase/RedlineKlientFoto/68_Ajazi07151350.png?Type=Download'
+                      - model:
+                          headId: '508'
+                          nachname: Aliu
+                          vorname: Paola Lorena
+                          kuerzel: KB56
+                          heimNummer: '10073'
+                          foto:
+                            headId: 40_profilbild.png.jpg
+                            url: 'https://betatest.servline.ch/redline_test/index.php/Redline/Demo/Rest//v1/bereich/2/klient/../../../../../Res/FileBase/RedlineKlientFoto/40_profilbild.png.jpg?Type=Download'
+                      - model:
+                          headId: '13'
+                          nachname: Altmann
+                          vorname: Erika
+                          kuerzel: ALT
+                          heimNummer: '100000'
+                          foto:
+                            headId: 76_Altmann_201809211758.png
+                            url: 'https://betatest.servline.ch/redline_test/index.php/Redline/Demo/Rest//v1/bereich/2/klient/../../../../../Res/FileBase/RedlineKlientFoto/76_Altmann_201809211758.png?Type=Download'
+                      - model:
+                          headId: '522'
+                          nachname: BerTest20
+                          vorname: BerTest20
+                          kuerzel: BT20
+                          heimNummer: ''
+                          foto:
+                            headId: 61_BerTest2006031000.png
+                            url: 'https://betatest.servline.ch/redline_test/index.php/Redline/Demo/Rest//v1/bereich/2/klient/../../../../../Res/FileBase/RedlineKlientFoto/61_BerTest2006031000.png?Type=Download'
+                      - model:
+                          headId: '515'
+                          nachname: Brenner
+                          vorname: Reto
+                          kuerzel: ReBr
+                          heimNummer: ''
+                          foto:
+                            headId: 66_Brenner07092028.png
+                            url: 'https://betatest.servline.ch/redline_test/index.php/Redline/Demo/Rest//v1/bereich/2/klient/../../../../../Res/FileBase/RedlineKlientFoto/66_Brenner07092028.png?Type=Download'
+                      - model:
+                          headId: '437'
+                          nachname: Engel
+                          vorname: Labinot
+                          kuerzel: lenge
+                          heimNummer: '10002'
+                          foto:
+                            headId: 69_Engel07190741.png
+                            url: 'https://betatest.servline.ch/redline_test/index.php/Redline/Demo/Rest//v1/bereich/2/klient/../../../../../Res/FileBase/RedlineKlientFoto/69_Engel07190741.png?Type=Download'
+                      - model:
+                          headId: '436'
+                          nachname: Errico
+                          vorname: René Robert
+                          kuerzel: RRE
+                          heimNummer: '10001'
+                          foto:
+                            headId: 34_1.jpg
+                            url: 'https://betatest.servline.ch/redline_test/index.php/Redline/Demo/Rest//v1/bereich/2/klient/../../../../../Res/FileBase/RedlineKlientFoto/34_1.jpg?Type=Download'
+                      - model:
+                          headId: '34'
+                          nachname: "Fetz'er"
+                          vorname: Aebi
+                          kuerzel: AeF
+                          heimNummer: '11111'
+                          foto:
+                            headId: 65_bac-1.jpg
+                            url: 'https://betatest.servline.ch/redline_test/index.php/Redline/Demo/Rest//v1/bereich/2/klient/../../../../../Res/FileBase/RedlineKlientFoto/65_bac-1.jpg?Type=Download'
+                      - model:
+                          headId: '20'
+                          nachname: Franke
+                          vorname: Franka
+                          kuerzel: FRANKF
+                          heimNummer: '111'
+                          foto:
+                            headId: 6_nel-olivia-waga_11.jpg
+                            url: 'https://betatest.servline.ch/redline_test/index.php/Redline/Demo/Rest//v1/bereich/2/klient/../../../../../Res/FileBase/RedlineKlientFoto/6_nel-olivia-waga_11.jpg?Type=Download'
+                      - model:
+                          headId: '546'
+                          nachname: Fuchs
+                          vorname: Max
+                          kuerzel: mfu
+                          heimNummer: ''
+                          foto: null
+                      - model:
+                          headId: '521'
+                          nachname: Grischun
+                          vorname: Pirmin
+                          kuerzel: PiGr
+                          heimNummer: '1355345'
+                          foto:
+                            headId: 71_Grischun_201807240927.png
+                            url: 'https://betatest.servline.ch/redline_test/index.php/Redline/Demo/Rest//v1/bereich/2/klient/../../../../../Res/FileBase/RedlineKlientFoto/71_Grischun_201807240927.png?Type=Download'
+                      - model:
+                          headId: '41'
+                          nachname: Heuberger
+                          vorname: Hubert
+                          kuerzel: HHE
+                          heimNummer: '12'
+                          foto:
+                            headId: 67_Heuberger.png
+                            url: 'https://betatest.servline.ch/redline_test/index.php/Redline/Demo/Rest//v1/bereich/2/klient/../../../../../Res/FileBase/RedlineKlientFoto/67_Heuberger.png?Type=Download'
+                      - model:
+                          headId: '544'
+                          nachname: Immler
+                          vorname: Karin
+                          kuerzel: kam
+                          heimNummer: '123456'
+                          foto: null
+                      - model:
+                          headId: '14'
+                          nachname: La Chapelle
+                          vorname: Frederik
+                          kuerzel: LaF
+                          heimNummer: '1452'
+                          foto: null
+                      - model:
+                          headId: '512'
+                          nachname: Muster
+                          vorname: Max
+                          kuerzel: MMu
+                          heimNummer: '999999'
+                          foto:
+                            headId: 17_image.png
+                            url: 'https://betatest.servline.ch/redline_test/index.php/Redline/Demo/Rest//v1/bereich/2/klient/../../../../../Res/FileBase/RedlineKlientFoto/17_image.png?Type=Download'
+                      - model:
+                          headId: '17'
+                          nachname: Pächter
+                          vorname: Ueli
+                          kuerzel: PA
+                          heimNummer: ''
+                          foto:
+                            headId: 72_PÃ¤chter09071531.png
+                            url: 'https://betatest.servline.ch/redline_test/index.php/Redline/Demo/Rest//v1/bereich/2/klient/../../../../../Res/FileBase/RedlineKlientFoto/72_P%C3%A4chter09071531.png?Type=Download'
+                      - model:
+                          headId: '2'
+                          nachname: Poronto
+                          vorname: Laura
+                          kuerzel: LaP
+                          heimNummer: '7'
+                          foto:
+                            headId: 75_Poronto09071620.png
+                            url: 'https://betatest.servline.ch/redline_test/index.php/Redline/Demo/Rest//v1/bereich/2/klient/../../../../../Res/FileBase/RedlineKlientFoto/75_Poronto09071620.png?Type=Download'
+                      - model:
+                          headId: '39'
+                          nachname: Schatz
+                          vorname: Felix
+                          kuerzel: txx
+                          heimNummer: ''
+                          foto:
+                            headId: 10_tanja-deutschlands-schoenste-frau-mc-620c45a7f6da7f28a5ff119949b744e9.jpg
+                            url: 'https://betatest.servline.ch/redline_test/index.php/Redline/Demo/Rest//v1/bereich/2/klient/../../../../../Res/FileBase/RedlineKlientFoto/10_tanja-deutschlands-schoenste-frau-mc-620c45a7f6da7f28a5ff119949b744e9.jpg?Type=Download'
+                      - model:
+                          headId: '520'
+                          nachname: Schneider
+                          vorname: Vreni
+                          kuerzel: VS
+                          heimNummer: '0101001'
+                          foto:
+                            headId: 74_Schneider09071539.png
+                            url: 'https://betatest.servline.ch/redline_test/index.php/Redline/Demo/Rest//v1/bereich/2/klient/../../../../../Res/FileBase/RedlineKlientFoto/74_Schneider09071539.png?Type=Download'
+                      - model:
+                          headId: '513'
+                          nachname: Schnupper Keller
+                          vorname: Schnupper Max
+                          kuerzel: MK
+                          heimNummer: ''
+                          foto:
+                            headId: 77_Schnupper Keller_201811291006.png
+                            url: 'https://betatest.servline.ch/redline_test/index.php/Redline/Demo/Rest//v1/bereich/2/klient/../../../../../Res/FileBase/RedlineKlientFoto/77_Schnupper%20Keller_201811291006.png?Type=Download'
+  '/v1/bereich/{bereichId}/klient/{klientId}':
+    parameters:
+      - name: bereichId
+        description: bereichId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: klientId
+        description: klientId
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: RedlineKlientRest.GetEntity
+      tags:
+        - Klient
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Klient'
+              examples:
+                ueli pächter:
+                  value:
+                    model:
+                      status:
+                        key: Active
+                        label: Aktiv
+                      pVPatientenverfuegung:
+                        key: '1'
+                        label: Ja
+                      pVAblageort: Personalordner
+                      notfallMedikation: 'Dieses wird der Insolvenzverwalter uns wegnehmen und verwerten. AUA.Beispielsweise Lebensversicherungen oder das Auto, wenn es nicht für den Lebenserwerb erforderlich ist, was bei vielen von uns jedoch der Fall ist. Diesen "Verlust" müssen wir in unsere Rechnung einbeziehen, wenn wir eruieren ob sich das Verbraucherinsolvenzverfahren für uns lohnt, wobei wir hier nicht vergessen sollten, das es sich hier nicht um ein Geschäft handelt, sondern um eine Schuld, die wir zurückzahlen sollten.'
+                      notfallMassnahmen: 'Als Notfall werden im Rettungswesen Fälle benannt, bei denen es zu einer lebensbedrohlichen Störung der Vitalparameter Bewusstsein, Atmung und Kreislauf oder der Funktionskreisläufe Wasser-Elektrolyt-Haushalt, Säure-Basen-Haushalt, Temperaturhaushalt und Stoffwechsel kommt. Ohne sofortige Hilfeleistung sind erhebliche gesundheitliche Schäden oder der Tod des Patienten zu befürchten.'
+                      headId: '17'
+                      nachname: Pächter
+                      vorname: Ueli
+                      kuerzel: PA
+                      heimNummer: ''
+                      foto:
+                        headId: 72_PÃ¤chter09071531.png
+                        url: 'https://betatest.servline.ch/redline_test/index.php/Redline/Demo/Rest//v1/bereich/2/klient/17/../../../../../../Res/FileBase/RedlineKlientFoto/72_P%C3%A4chter09071531.png?Type=Download'
+                      eintritt: '2006-12-11'
+                      austritt: null
+                      geburtsdatum: '1972-04-12'
+                      geschlecht:
+                        key: '1'
+                        label: männlich
+                      zivilstand:
+                        headId: '4'
+                        label: ledig
+                      sprache: ''
+                      nationalitaet: Schweiz
+                      aufenthaltsbewilligung: ''
+                      konfession:
+                        headId: '10'
+                        label: evang.-ref.
+                      aHVNummer: 756.3210.9471.05
+                      schriften: Frauenfeld
+                      kanton: TG
+                      heimatort: Zürich
+                      adresseFirma: ''
+                      adresseStrasse: Leuenstrasse 6
+                      adresseStrasseZusatz: ''
+                      adressePostfach: ''
+                      adressePLZ: '9000'
+                      adresseOrt: St. Gallen
+                      adresseKanton: null
+                      adresseLand: ''
+                      phone: 071 222 56 45
+                      phone2: ''
+                      mobile: 079 545 23 45
+                      email: upaechter@server.ch
+                      notfallnummer: 017 562 32 65
+                      notfallPerson: Karsten Lutz
+                      notfallnummer2: 213 265 48 87
+                      notfallPerson2: Sibylle Hofer
+                      notfallDiagnose: "Die Diagnose (griechisch &#948;&#953;&#940;&#947;&#957;&#969;&#963;&#953;&#962;, diágnosis 'Unterscheidung, Entscheidung', aus &#948;&#953;&#940;-, diá-, \x84durch-\x93 und &#947;&#957;&#974;&#963;&#953;&#962;, gnósis, 'Erkenntnis, Urteil')[1] ist in den Ärzte- und Psychotherapieberufen sowie in den Gesundheitsfachberufen oder der Psychologie die genaue Zuordnung von Befunden \x96 diagnostischen Zeichen oder Symptomen \x96 zu einem Krankheitsbegriff oder einer Symptomatik im Sinne eines Syndroms. Das festgestellte Syndrom ergibt zusammen mit der vermuteten Krankheitsursache und -entstehung (Ätiologie und Pathogenese) die Diagnose. Im weiteren Sinn handelt es sich bei der Diagnose um die Klassifizierung von Phänomenen zu einer Kategorie und deren Interpretation, etwa denen der \x84Gesundheit\x93 oder des \x84Krankseins\x93.\r\nDie Methoden der Diagnosefindung (z. B. Anamneseerhebung, körperliche Untersuchung, Anwendung bildgebender Verfahren wie Röntgen/MRT oder Analytik mit Laborwerten des Bluts und anderen Körperflüssigkeiten) werden mit dem Begriff der Diagnostik zusammengefasst. Durch das diagnostische Vorgehen wird immer eine positive Diagnose angestrebt, die immer dann gestellt werden kann, wenn die Konstellation der erhobenen anamnestischen Angaben und/oder Befunde spezifisch für ein Krankheitsbild ist. Sind die erhobenen Befunde hierfür nicht ausreichend, werden in der Regel weitere medizinische Untersuchungen zur Diagnosesicherung notwendig. Einige Krankheiten sind lediglich durch unspezifische Symptome gekennzeichnet. In diesen Fällen wird die Menge möglicher Diagnosen immer stärker eingeschränkt, bis eine ausreichende Basis für die Entscheidung für eine bestimmte Ausschlussdiagnose oder zumindest ein bestimmtes therapeutisches Verfahren besteht."
+                      notfallSuchtmittel: "Sucht ist das unabweisbare Verlangen nach einem bestimmten Erlebniszustand. Diesem Verlangen werden die Kräfte des Verstandes untergeordnet. Es beeinträchtigt die freie Entfaltung einer Persönlichkeit und zerstört die sozialen Bindungen und die sozialen Chancen eines Individuums . \r\n\r\nDen sogenannten stoffgebundenen Süchten (z. B. Alkohol-, Nikotin-, Heroinsucht) kommt dabei nur eine repräsentative Bedeutung zu. Sie veranschaulichen in zwar drastischer, aber zugleich auch einschränkender Weise eine Erscheinung, der man auf allen Gebieten des menschlichen Erlebens und Verhaltens begegnen kann. \r\n\r\nOb Arbeiten, Sammeln, Machtstreben, Kaufen, Spielen oder Sexualität - jede Form menschlichen Interesses kann in süchtiger Weise erkranken. Im offiziellen Sprachgebrauch der Weltgesundheitsorganisation (WHO) existierte der Begriff \"Sucht\" von 1957 - 1964. \r\n\r\nDanach wurde er durch \" Missbrauch \" und \" Abhängigkeit \" ersetzt. In wissenschaftlichen Arbeiten wird der Begriff \"Sucht\" daher nicht mehr verwendet, umgangssprachlich erfreut er sich aber weiterhin großer Beliebtheit. \r\n\r\nGrundsätzlich kann jeder Mensch süchtig werden. Da Sucht nicht auf den Umgang mit bestimmten Stoffen beschränkt ist, kann jede Form menschlichen Verhaltens zur Sucht werden (z.B. Magersucht, Arbeitssucht, Spielsucht, unkontrolliertes Verlangen nach sexueller Befriedigung). "
+                      krankenkasseName: Atupri
+                      krankenkasseSektion: St. Gallen
+                      krankenkasseNummer: 945.4.10A1
+                      kKBAGNr: '129632'
+                      kKKartenNr: '32264.354'
+                      krankenkassePhone: 071 866 56 45
+                      krankenkasseEmail: atupri@atupri.ch
+                      krankenkasseTaggeld:
+                        key: '1'
+                        label: Ja
+                      krankenkasseBemerkungen: ''
+                      krankenkasseZusatzName: ''
+                      krankenkasseZusatzSektion: ''
+                      krankenkasseZusatzNummer: ''
+                      krankenkasseZusatzPhone: ''
+                      krankenkasseZusatzEmail: ''
+                      unfall: Zürich Versicherungen
+                      unfallEmail: zurich@zurich.ch
+                      haftpflicht: Mobiliar Versicherungen
+                      haftpflichtEmail: mobiliar@mobiliar.ch
+        '404':
+          description: not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFound-Response'
+  '/v1/bereich/{bereichId}/klient/{klientId}/foto':
+    parameters:
+      - name: bereichId
+        description: bereichId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: klientId
+        description: klientId
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: RedlineKlientRest.GetFoto
+      tags:
+        - Klient
+      parameters:
+        - name: maxWidth
+          in: query
+          schema:
+            type: integer
+        - name: maxHeight
+          in: query
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: ok
+          content:
+            image/jpg:
+              schema:
+                type: string
+                format: binary
+              examples: {}
+            image/png:
+              schema:
+                type: string
+                format: binary
+            image/gif:
+              schema:
+                type: string
+                format: binary
+    post:
+      operationId: RedlineKlientRest.PostFoto
+      tags:
+        - Klient
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Created-Response'
+        '409':
+          description: conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error-Response'
+  '/v1/bereich/{bereichId}/tagesjournal':
+    parameters:
+      - name: bereichId
+        description: bereichId
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: RedlineTagesjournalRest.GetCollection
+      tags:
+        - Journal
+      parameters:
+        - name: datum
+          in: query
+          schema:
+            type: string
+          description: 'Datum (ISO-Format, Beispiel: 2018-05-09)'
+        - name: klientSort
+          in: query
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+          description: Nach Klient sortieren (Nachname)
+        - name: zeitSort
+          in: query
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+          description: Nach Uhrzeit sortieren
+        - name: kategorien
+          in: query
+          schema:
+            type: string
+          description: 'Nach Kategorien filtern. Kommaseparierte Liste mit Journalkategorie-Ids. Z.b. ,2,5,6,'
+        - name: reminders
+          in: query
+          schema:
+            type: boolean
+          description: |-
+            Sollen auch Erinnerungen geliefert werden?
+            Erinnerungen sind im Ergebnis mit isReminder=true gekennzeichnet
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JournalCollection'
+              examples:
+                6.3.2020:
+                  value:
+                    data:
+                      - model:
+                          headId: '600'
+                          headUpdateDate: '2019-12-01T16:16:34Z'
+                          datum: '2020-03-26'
+                          datumAb: '2012-11-04'
+                          datumBis: null
+                          zeit: null
+                          zeitVon: null
+                          zeitBis: null
+                          name: ''
+                          text: ''
+                          kategorie: ',92,'
+                          terminart: '20'
+                          klient:
+                            headId: '13'
+                            label: Altmann Erika
+                            kuerzel: null
+                          betreuer:
+                            headId: '6'
+                            label: Troxler Peter
+                            kuerzel: trox
+                          link: '7'
+                          linkTable: RedlinePflegeVerordnung
+                          linkInfo:
+                            title: Pfleg. Massnahme
+                            textZeit: ''
+                            text: Test Ganztag
+                            textAttrs: ''
+                          fileCollection: null
+                          fileCollectionInfo: null
+                          isReminder: false
+                      - model:
+                          headId: '737'
+                          headUpdateDate: '2018-12-14T15:35:23Z'
+                          datum: '2020-03-26'
+                          datumAb: '2013-05-01'
+                          datumBis: null
+                          zeit: '17:00:00'
+                          zeitVon: '17:00:00'
+                          zeitBis: '18:00:00'
+                          name: ''
+                          text: ''
+                          kategorie: ',91,'
+                          terminart: '20'
+                          klient:
+                            headId: '433'
+                            label: BachmannEG EvelynABC
+                            kuerzel: null
+                          betreuer:
+                            headId: '12'
+                            label: Niedegger Karl
+                            kuerzel: NIKA
+                          link: '59'
+                          linkTable: RedlineTermin
+                          linkInfo:
+                            title: Erinnerung
+                            textZeit: '17:00 - 18:00'
+                            text: ''
+                            textAttrs: '  morgen  Freitag, 27. März 2020  '
+                          fileCollection: null
+                          fileCollectionInfo: null
+                          isReminder: true
+                      - model:
+                          headId: '737'
+                          headUpdateDate: '2018-12-14T15:35:23Z'
+                          datum: '2020-03-26'
+                          datumAb: '2013-05-01'
+                          datumBis: null
+                          zeit: '17:00:00'
+                          zeitVon: '17:00:00'
+                          zeitBis: '18:00:00'
+                          name: ''
+                          text: ''
+                          kategorie: ',91,'
+                          terminart: '20'
+                          klient:
+                            headId: '433'
+                            label: BachmannEG EvelynABC
+                            kuerzel: null
+                          betreuer:
+                            headId: '12'
+                            label: Niedegger Karl
+                            kuerzel: NIKA
+                          link: '59'
+                          linkTable: RedlineTermin
+                          linkInfo:
+                            title: 'Termin: Zimmerkontrolle'
+                            textZeit: '17:00 - 18:00'
+                            text: ''
+                            textAttrs: ''
+                          fileCollection: null
+                          fileCollectionInfo: null
+                          isReminder: false
+                      - model:
+                          headId: '734'
+                          headUpdateDate: '2013-05-05T12:32:42Z'
+                          datum: '2020-03-26'
+                          datumAb: '2013-05-05'
+                          datumBis: null
+                          zeit: '17:00:00'
+                          zeitVon: '17:00:00'
+                          zeitBis: '18:00:00'
+                          name: ''
+                          text: ''
+                          kategorie: ',91,'
+                          terminart: '20'
+                          klient:
+                            headId: '23'
+                            label: Betschard Beat
+                            kuerzel: null
+                          betreuer:
+                            headId: '1'
+                            label: Binotto Beat
+                            kuerzel: RT
+                          link: '56'
+                          linkTable: RedlineTermin
+                          linkInfo:
+                            title: Erinnerung
+                            textZeit: '17:00 - 18:00'
+                            text: ''
+                            textAttrs: ' in 5 Stunden  Donnerstag, 26. März 2020  '
+                          fileCollection: null
+                          fileCollectionInfo: null
+                          isReminder: true
+                      - model:
+                          headId: '734'
+                          headUpdateDate: '2013-05-05T12:32:42Z'
+                          datum: '2020-03-26'
+                          datumAb: '2013-05-05'
+                          datumBis: null
+                          zeit: '17:00:00'
+                          zeitVon: '17:00:00'
+                          zeitBis: '18:00:00'
+                          name: ''
+                          text: ''
+                          kategorie: ',91,'
+                          terminart: '20'
+                          klient:
+                            headId: '23'
+                            label: Betschard Beat
+                            kuerzel: null
+                          betreuer:
+                            headId: '1'
+                            label: Binotto Beat
+                            kuerzel: RT
+                          link: '56'
+                          linkTable: RedlineTermin
+                          linkInfo:
+                            title: 'Termin: Zimmerkontrolle'
+                            textZeit: '17:00 - 18:00'
+                            text: ''
+                            textAttrs: ''
+                          fileCollection: null
+                          fileCollectionInfo: null
+                          isReminder: false
+                      - model:
+                          headId: '383'
+                          headUpdateDate: '2019-12-01T16:16:11Z'
+                          datum: '2020-03-26'
+                          datumAb: '2010-04-29'
+                          datumBis: null
+                          zeit: '08:30:00'
+                          zeitVon: '08:30:00'
+                          zeitBis: '08:35:00'
+                          name: ''
+                          text: ''
+                          kategorie: ',62,'
+                          terminart: '30'
+                          klient:
+                            headId: '34'
+                            label: "Fetz'er Aebi"
+                            kuerzel: null
+                          betreuer:
+                            headId: '6'
+                            label: Troxler Peter
+                            kuerzel: trox
+                          link: '4'
+                          linkTable: RedlineMedVerordnung
+                          linkInfo:
+                            title: Medizinische Verordnung
+                            textZeit: '08:30 - 08:35'
+                            text: Fuss kontrollierenZehennägel schneiden
+                            textAttrs: 'Verordnet durch: Dr. Haus'
+                          fileCollection: null
+                          fileCollectionInfo: null
+                          isReminder: false
+                      - model:
+                          headId: '11849'
+                          headUpdateDate: '2018-05-21T19:52:59Z'
+                          datum: '2020-03-26'
+                          datumAb: '2018-05-20'
+                          datumBis: null
+                          zeit: '14:00:00'
+                          zeitVon: '14:00:00'
+                          zeitBis: '15:00:00'
+                          name: ''
+                          text: ''
+                          kategorie: ',91,'
+                          terminart: '20'
+                          klient:
+                            headId: '34'
+                            label: "Fetz'er Aebi"
+                            kuerzel: null
+                          betreuer:
+                            headId: '1'
+                            label: Binotto Beat
+                            kuerzel: RT
+                          link: '109'
+                          linkTable: RedlineTermin
+                          linkInfo:
+                            title: 'Termin: Täglicher Termin Erledigbar'
+                            textZeit: '14:00 - 15:00'
+                            text: TextText Text
+                            textAttrs: ''
+                          fileCollection: null
+                          fileCollectionInfo: null
+                          isReminder: false
+                      - model:
+                          headId: '385'
+                          headUpdateDate: '2019-03-21T17:14:10Z'
+                          datum: '2020-03-26'
+                          datumAb: '2010-04-29'
+                          datumBis: null
+                          zeit: '22:34:00'
+                          zeitVon: '22:34:00'
+                          zeitBis: '23:34:00'
+                          name: ''
+                          text: Aebi geht immer am Freitag an die Spielabende.
+                          kategorie: ',51,'
+                          terminart: '20'
+                          klient:
+                            headId: '34'
+                            label: "Fetz'er Aebi"
+                            kuerzel: null
+                          betreuer:
+                            headId: '12'
+                            label: Niedegger Karl
+                            kuerzel: NIKA
+                          link: '20'
+                          linkTable: RedlineFoerdermassnahme
+                          linkInfo:
+                            title: Entwicklungsmassnahme
+                            textZeit: ''
+                            text: "Stichwort: Spielen \nAebi geht immer am Freitag an die Spielabende."
+                            textAttrs: ''
+                          fileCollection: null
+                          fileCollectionInfo: null
+                          isReminder: false
+                      - model:
+                          headId: '739'
+                          headUpdateDate: '2016-05-19T13:53:02Z'
+                          datum: '2020-03-26'
+                          datumAb: '2013-05-01'
+                          datumBis: null
+                          zeit: '17:01:00'
+                          zeitVon: '17:01:00'
+                          zeitBis: '18:00:00'
+                          name: ''
+                          text: ''
+                          kategorie: ',91,'
+                          terminart: '20'
+                          klient:
+                            headId: '20'
+                            label: Franke Franka
+                            kuerzel: null
+                          betreuer:
+                            headId: '1'
+                            label: Binotto Beat
+                            kuerzel: RT
+                          link: '61'
+                          linkTable: RedlineTermin
+                          linkInfo:
+                            title: Erinnerung
+                            textZeit: '17:01 - 18:00'
+                            text: ''
+                            textAttrs: ' in 5 Stunden  Donnerstag, 26. März 2020  '
+                          fileCollection: null
+                          fileCollectionInfo: null
+                          isReminder: true
+                      - model:
+                          headId: '739'
+                          headUpdateDate: '2016-05-19T13:53:02Z'
+                          datum: '2020-03-26'
+                          datumAb: '2013-05-01'
+                          datumBis: null
+                          zeit: '17:01:00'
+                          zeitVon: '17:01:00'
+                          zeitBis: '18:00:00'
+                          name: ''
+                          text: ''
+                          kategorie: ',91,'
+                          terminart: '20'
+                          klient:
+                            headId: '20'
+                            label: Franke Franka
+                            kuerzel: null
+                          betreuer:
+                            headId: '1'
+                            label: Binotto Beat
+                            kuerzel: RT
+                          link: '61'
+                          linkTable: RedlineTermin
+                          linkInfo:
+                            title: 'Termin: Zimmerkontrolle'
+                            textZeit: '17:01 - 18:00'
+                            text: ''
+                            textAttrs: ''
+                          fileCollection: null
+                          fileCollectionInfo: null
+                          isReminder: false
+                      - model:
+                          headId: '594'
+                          headUpdateDate: '2012-11-03T15:25:02Z'
+                          datum: '2020-03-26'
+                          datumAb: '2012-10-07'
+                          datumBis: null
+                          zeit: '19:00:00'
+                          zeitVon: '19:00:00'
+                          zeitBis: '19:30:00'
+                          name: ''
+                          text: ''
+                          kategorie: ',92,'
+                          terminart: '20'
+                          klient:
+                            headId: '20'
+                            label: Franke Franka
+                            kuerzel: null
+                          betreuer:
+                            headId: '8'
+                            label: Sutter Daniel
+                            kuerzel: dsut
+                          link: '4'
+                          linkTable: RedlinePflegeVerordnung
+                          linkInfo:
+                            title: Pfleg. Massnahme
+                            textZeit: '19:00 - 19:30'
+                            text: Die Haare müssen gewaschen werden.
+                            textAttrs: ''
+                          fileCollection: null
+                          fileCollectionInfo: null
+                          isReminder: false
+                      - model:
+                          headId: '741'
+                          headUpdateDate: '2019-12-01T16:07:20Z'
+                          datum: '2020-03-26'
+                          datumAb: '2013-05-01'
+                          datumBis: null
+                          zeit: '17:00:00'
+                          zeitVon: '17:00:00'
+                          zeitBis: '18:00:00'
+                          name: ''
+                          text: ''
+                          kategorie: ',91,'
+                          terminart: '20'
+                          klient:
+                            headId: '19'
+                            label: Gmür Hampi
+                            kuerzel: null
+                          betreuer:
+                            headId: '4'
+                            label: Verwalter Verwalter
+                            kuerzel: verw
+                          link: '63'
+                          linkTable: RedlineTermin
+                          linkInfo:
+                            title: Erinnerung
+                            textZeit: '17:00 - 18:00'
+                            text: ''
+                            textAttrs: ' in 5 Stunden  Donnerstag, 26. März 2020  '
+                          fileCollection: null
+                          fileCollectionInfo: null
+                          isReminder: true
+                      - model:
+                          headId: '741'
+                          headUpdateDate: '2019-12-01T16:07:20Z'
+                          datum: '2020-03-26'
+                          datumAb: '2013-05-01'
+                          datumBis: null
+                          zeit: '17:00:00'
+                          zeitVon: '17:00:00'
+                          zeitBis: '18:00:00'
+                          name: ''
+                          text: ''
+                          kategorie: ',91,'
+                          terminart: '20'
+                          klient:
+                            headId: '19'
+                            label: Gmür Hampi
+                            kuerzel: null
+                          betreuer:
+                            headId: '4'
+                            label: Verwalter Verwalter
+                            kuerzel: verw
+                          link: '63'
+                          linkTable: RedlineTermin
+                          linkInfo:
+                            title: 'Termin: Zimmerkontrolle'
+                            textZeit: '17:00 - 18:00'
+                            text: ''
+                            textAttrs: ''
+                          fileCollection: null
+                          fileCollectionInfo: null
+                          isReminder: false
+                      - model:
+                          headId: '742'
+                          headUpdateDate: '2013-05-05T12:37:12Z'
+                          datum: '2020-03-26'
+                          datumAb: '2013-05-05'
+                          datumBis: null
+                          zeit: '17:00:00'
+                          zeitVon: '17:00:00'
+                          zeitBis: '18:00:00'
+                          name: ''
+                          text: ''
+                          kategorie: ',91,'
+                          terminart: '20'
+                          klient:
+                            headId: '41'
+                            label: Heuberger Hubert
+                            kuerzel: null
+                          betreuer:
+                            headId: '1'
+                            label: Binotto Beat
+                            kuerzel: RT
+                          link: '64'
+                          linkTable: RedlineTermin
+                          linkInfo:
+                            title: Erinnerung
+                            textZeit: '17:00 - 18:00'
+                            text: ''
+                            textAttrs: ' in 5 Stunden  Donnerstag, 26. März 2020  '
+                          fileCollection: null
+                          fileCollectionInfo: null
+                          isReminder: true
+                      - model:
+                          headId: '742'
+                          headUpdateDate: '2013-05-05T12:37:12Z'
+                          datum: '2020-03-26'
+                          datumAb: '2013-05-05'
+                          datumBis: null
+                          zeit: '17:00:00'
+                          zeitVon: '17:00:00'
+                          zeitBis: '18:00:00'
+                          name: ''
+                          text: ''
+                          kategorie: ',91,'
+                          terminart: '20'
+                          klient:
+                            headId: '41'
+                            label: Heuberger Hubert
+                            kuerzel: null
+                          betreuer:
+                            headId: '1'
+                            label: Binotto Beat
+                            kuerzel: RT
+                          link: '64'
+                          linkTable: RedlineTermin
+                          linkInfo:
+                            title: 'Termin: Zimmerkontrolle'
+                            textZeit: '17:00 - 18:00'
+                            text: ''
+                            textAttrs: ''
+                          fileCollection: null
+                          fileCollectionInfo: null
+                          isReminder: false
+                      - model:
+                          headId: '740'
+                          headUpdateDate: '2013-05-05T12:36:08Z'
+                          datum: '2020-03-26'
+                          datumAb: '2013-05-01'
+                          datumBis: null
+                          zeit: '17:00:00'
+                          zeitVon: '17:00:00'
+                          zeitBis: '18:00:00'
+                          name: ''
+                          text: ''
+                          kategorie: ',91,'
+                          terminart: '20'
+                          klient:
+                            headId: '14'
+                            label: La Chapelle Frederik
+                            kuerzel: null
+                          betreuer:
+                            headId: '1'
+                            label: Binotto Beat
+                            kuerzel: RT
+                          link: '62'
+                          linkTable: RedlineTermin
+                          linkInfo:
+                            title: Erinnerung
+                            textZeit: '17:00 - 18:00'
+                            text: ''
+                            textAttrs: ' in 5 Stunden  Donnerstag, 26. März 2020  '
+                          fileCollection: null
+                          fileCollectionInfo: null
+                          isReminder: true
+                      - model:
+                          headId: '740'
+                          headUpdateDate: '2013-05-05T12:36:08Z'
+                          datum: '2020-03-26'
+                          datumAb: '2013-05-01'
+                          datumBis: null
+                          zeit: '17:00:00'
+                          zeitVon: '17:00:00'
+                          zeitBis: '18:00:00'
+                          name: ''
+                          text: ''
+                          kategorie: ',91,'
+                          terminart: '20'
+                          klient:
+                            headId: '14'
+                            label: La Chapelle Frederik
+                            kuerzel: null
+                          betreuer:
+                            headId: '1'
+                            label: Binotto Beat
+                            kuerzel: RT
+                          link: '62'
+                          linkTable: RedlineTermin
+                          linkInfo:
+                            title: 'Termin: Zimmerkontrolle'
+                            textZeit: '17:00 - 18:00'
+                            text: ''
+                            textAttrs: ''
+                          fileCollection: null
+                          fileCollectionInfo: null
+                          isReminder: false
+                      - model:
+                          headId: '12403'
+                          headUpdateDate: '2018-12-28T13:22:38Z'
+                          datum: '2020-03-26'
+                          datumAb: '2019-01-10'
+                          datumBis: null
+                          zeit: null
+                          zeitVon: null
+                          zeitBis: null
+                          name: ''
+                          text: ''
+                          kategorie: ',91,'
+                          terminart: '30'
+                          klient:
+                            headId: '512'
+                            label: Muster Max
+                            kuerzel: null
+                          betreuer:
+                            headId: '1'
+                            label: Binotto Beat
+                            kuerzel: RT
+                          link: '119'
+                          linkTable: RedlineTermin
+                          linkInfo:
+                            title: 'Termin: Küche - Abwasch'
+                            textZeit: ''
+                            text: Max hat jeweils am Donnerstagabend den Abwasch zu erledigen.Testzeile neu2
+                            textAttrs: ''
+                          fileCollection: null
+                          fileCollectionInfo: null
+                          isReminder: false
+                      - model:
+                          headId: '1624'
+                          headUpdateDate: '2018-09-04T10:31:22Z'
+                          datum: '2020-03-26'
+                          datumAb: '2015-09-26'
+                          datumBis: null
+                          zeit: '17:30:00'
+                          zeitVon: '17:30:00'
+                          zeitBis: '17:45:00'
+                          name: ''
+                          text: ''
+                          kategorie: ',91,'
+                          terminart: '50'
+                          klient:
+                            headId: '512'
+                            label: Muster Max
+                            kuerzel: null
+                          betreuer:
+                            headId: '1'
+                            label: Binotto Beat
+                            kuerzel: RT
+                          link: '91'
+                          linkTable: RedlineTermin
+                          linkInfo:
+                            title: 'Termin: Monatsgespräch'
+                            textZeit: '17:30 - 17:45'
+                            text: Zwischen Muster Max und Betreuer
+                            textAttrs: ''
+                          fileCollection: null
+                          fileCollectionInfo: null
+                          isReminder: false
+  '/v1/bereich/{bereichId}/verlaufsjournal':
+    parameters:
+      - name: bereichId
+        description: bereichId
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: RedlineVerlaufsjournalRest.GetCollection
+      tags:
+        - Journal
+      parameters:
+        - name: klientId
+          in: query
+          schema:
+            type: string
+          description: Klient Id
+        - name: datumAb
+          in: query
+          schema:
+            type: string
+          description: 'Datum ab (ISO-Format, Beispiel: 2018-05-09)'
+        - name: datumBis
+          in: query
+          schema:
+            type: string
+          description: 'Datum bis (ISO-Format, Beispiel: 2018-05-09)'
+        - name: zeitSort
+          in: query
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+          description: Nach Uhrzeit sortieren
+        - name: datumSort
+          in: query
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+          description: Nach Datum sortieren
+        - name: kategorien
+          in: query
+          schema:
+            type: string
+          description: 'Nach Kategorien filtern. Kommaseparierte Liste mit Journalkategorie-Ids. Z.b. ,2,5,6,'
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JournalCollection'
+              examples:
+                ueli pächter:
+                  value:
+                    data:
+                      - model:
+                          headId: '696'
+                          headUpdateDate: '2013-05-05T11:48:57Z'
+                          datum: '1972-04-12'
+                          datumAb: '1972-04-12'
+                          datumBis: null
+                          zeit: null
+                          zeitVon: null
+                          zeitBis: null
+                          name: ''
+                          text: ''
+                          kategorie: ',91,'
+                          terminart: '60'
+                          klient:
+                            headId: '17'
+                            label: Pächter Ueli
+                            kuerzel: PA
+                          betreuer:
+                            headId: '1'
+                            label: Binotto Beat
+                            kuerzel: RT
+                          link: '18'
+                          linkTable: RedlineTermin
+                          linkInfo:
+                            title: 'Termin: Geburtstag Ueli Pächter'
+                            textZeit: ''
+                            text: ''
+                            textAttrs: ''
+                          fileCollection: null
+                          fileCollectionInfo: null
+                          isReminder: false
+                      - model:
+                          headId: '749'
+                          headUpdateDate: '2019-12-01T16:13:40Z'
+                          datum: '2013-05-05'
+                          datumAb: '2013-05-05'
+                          datumBis: null
+                          zeit: '14:00:00'
+                          zeitVon: '14:00:00'
+                          zeitBis: '14:30:00'
+                          name: ''
+                          text: ''
+                          kategorie: ',52,'
+                          terminart: '30'
+                          klient:
+                            headId: '17'
+                            label: Pächter Ueli
+                            kuerzel: PA
+                          betreuer:
+                            headId: '6'
+                            label: Troxler Peter
+                            kuerzel: trox
+                          link: '39'
+                          linkTable: RedlineGesundheitsvorsorge
+                          linkInfo:
+                            title: Gesundheitstermin - Physiotherapeut
+                            textZeit: '14:00 - 14:30'
+                            text: Trainings-Einheit mit Physio.
+                            textAttrs: ''
+                          fileCollection: null
+                          fileCollectionInfo: null
+                          isReminder: false
+                      - model:
+                          headId: '11716'
+                          headUpdateDate: '2019-01-18T14:41:41Z'
+                          datum: '2018-08-07'
+                          datumAb: '2018-08-07'
+                          datumBis: '2021-05-25'
+                          zeit: '08:00:00'
+                          zeitVon: '08:00:00'
+                          zeitBis: '10:00:00'
+                          name: ''
+                          text: ''
+                          kategorie: ',91,'
+                          terminart: '40'
+                          klient:
+                            headId: '17'
+                            label: Pächter Ueli
+                            kuerzel: PA
+                          betreuer:
+                            headId: '6'
+                            label: Troxler Peter
+                            kuerzel: trox
+                          link: '107'
+                          linkTable: RedlineTermin
+                          linkInfo:
+                            title: 'Termin: Spielemorgen'
+                            textZeit: '08:00 - 10:00'
+                            text: ''
+                            textAttrs: ''
+                          fileCollection: null
+                          fileCollectionInfo: null
+                          isReminder: false
+                      - model:
+                          headId: '12564'
+                          headUpdateDate: '2020-04-14T16:52:45Z'
+                          datum: '2020-04-14'
+                          datumAb: '2020-04-14'
+                          datumBis: null
+                          zeit: null
+                          zeitVon: null
+                          zeitBis: null
+                          name: ''
+                          text: ''
+                          kategorie: ',106,'
+                          terminart: ''
+                          klient:
+                            headId: '17'
+                            label: Pächter Ueli
+                            kuerzel: PA
+                          betreuer:
+                            headId: '9'
+                            label: Niederer Franz
+                            kuerzel: FN
+                          link: '5'
+                          linkTable: RedlineReserveMedikation
+                          linkInfo:
+                            title: 'Medikationsbeginn: Reservemedikation'
+                            textZeit: ''
+                            text: ''
+                            textAttrs: ' ab 14.04.2020 Name: Rohypnol, Verabreichungsform: Andere, Dosierung: morgens:  1, Arzt: fgIndikation: Bei Husten und Heiserkeit., Dosis: 3 '
+                          fileCollection: null
+                          fileCollectionInfo: null
+                          isReminder: false
+        '409':
+          description: conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error-Response'
+  '/v1/bereich/{bereichId}/verlaufsjournalhist':
+    parameters:
+      - name: bereichId
+        description: bereichId
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: RedlineVerlaufsjournalHistRest.GetCollection
+      tags:
+        - Journal
+      parameters:
+        - name: klientId
+          in: query
+          schema:
+            type: string
+          description: Klient Id
+        - name: datumAb
+          in: query
+          schema:
+            type: string
+          description: 'Datum ab (ISO-Format, Beispiel: 2018-05-09)'
+        - name: datumBis
+          in: query
+          schema:
+            type: string
+          description: 'Datum bis (ISO-Format, Beispiel: 2018-05-09)'
+        - name: zeitSort
+          in: query
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+          description: Nach Uhrzeit sortieren
+        - name: datumSort
+          in: query
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+          description: Nach Datum sortieren
+        - name: kategorien
+          in: query
+          schema:
+            type: string
+          description: 'Nach Kategorien filtern. Kommaseparierte Liste mit Journalkategorie-Ids. Z.b. ,2,5,6,'
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JournalCollection'
+              examples:
+                pächter hist:
+                  value:
+                    data:
+                      - model:
+                          headId: '12564'
+                          headUpdateDate: '2020-04-14T16:52:45Z'
+                          datum: '2020-04-14'
+                          datumAb: '2020-04-14'
+                          datumBis: null
+                          zeit: null
+                          zeitVon: null
+                          zeitBis: null
+                          name: ''
+                          text: ''
+                          kategorie: ',106,'
+                          terminart: ''
+                          klient:
+                            headId: '17'
+                            label: Pächter Ueli
+                            kuerzel: PA
+                          betreuer:
+                            headId: '9'
+                            label: Niederer Franz
+                            kuerzel: FN
+                          link: '5'
+                          linkTable: RedlineReserveMedikation
+                          linkInfo:
+                            title: 'Medikationsbeginn: Reservemedikation'
+                            textZeit: ''
+                            text: ''
+                            textAttrs: ' ab 14.04.2020 Name: Rohypnol, Verabreichungsform: Andere, Dosierung: morgens:  1, Arzt: fgIndikation: Bei Husten und Heiserkeit., Dosis: 3 '
+                          fileCollection: null
+                          fileCollectionInfo: null
+                          isReminder: false
+                      - model:
+                          headId: '11716'
+                          headUpdateDate: '2019-01-18T14:41:41Z'
+                          datum: '2020-04-14'
+                          datumAb: '2018-08-07'
+                          datumBis: '2021-05-25'
+                          zeit: '08:00:00'
+                          zeitVon: '08:00:00'
+                          zeitBis: '10:00:00'
+                          name: ''
+                          text: ''
+                          kategorie: ',91,'
+                          terminart: '40'
+                          klient:
+                            headId: '17'
+                            label: Pächter Ueli
+                            kuerzel: PA
+                          betreuer:
+                            headId: '6'
+                            label: Troxler Peter
+                            kuerzel: trox
+                          link: '107'
+                          linkTable: RedlineTermin
+                          linkInfo:
+                            title: 'Termin: Spielemorgen'
+                            textZeit: '08:00 - 10:00'
+                            text: ''
+                            textAttrs: ''
+                          fileCollection: null
+                          fileCollectionInfo: null
+                          isReminder: false
+                      - model:
+                          headId: '749'
+                          headUpdateDate: '2019-12-01T16:13:40Z'
+                          datum: '2020-04-19'
+                          datumAb: '2013-05-05'
+                          datumBis: null
+                          zeit: '14:00:00'
+                          zeitVon: '14:00:00'
+                          zeitBis: '14:30:00'
+                          name: ''
+                          text: ''
+                          kategorie: ',52,'
+                          terminart: '30'
+                          klient:
+                            headId: '17'
+                            label: Pächter Ueli
+                            kuerzel: PA
+                          betreuer:
+                            headId: '6'
+                            label: Troxler Peter
+                            kuerzel: trox
+                          link: '39'
+                          linkTable: RedlineGesundheitsvorsorge
+                          linkInfo:
+                            title: Gesundheitstermin - Physiotherapeut
+                            textZeit: '14:00 - 14:30'
+                            text: Trainings-Einheit mit Physio.
+                            textAttrs: ''
+                          fileCollection: null
+                          fileCollectionInfo: null
+                          isReminder: false
+        '409':
+          description: conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error-Response'
+  '/v1/bereich/{bereichId}/journal':
+    parameters:
+      - name: bereichId
+        description: bereichId
+        in: path
+        required: true
+        schema:
+          type: string
+    post:
+      operationId: RedlineJournalRest.Create
+      tags:
+        - Journal
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Journaleintrag'
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Created-Response'
+        '409':
+          description: conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error-Response'
+  '/v1/bereich/{bereichId}/journal/{journalId}':
+    parameters:
+      - name: bereichId
+        description: bereichId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: journalId
+        description: journalId
+        in: path
+        required: true
+        schema:
+          type: string
+    post:
+      operationId: RedlineJournalRest.Change
+      tags:
+        - Journal
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Journaleintrag'
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ok-Response'
+        '409':
+          description: conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error-Response'
+    delete:
+      operationId: RedlineJournalRest.Delete
+      tags:
+        - Journal
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ok-Response'
+        '409':
+          description: conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error-Response'
+  '/v1/bereich/{bereichId}/journal/{journalId}/images':
+    parameters:
+      - name: bereichId
+        description: bereichId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: journalId
+        description: journalId
+        in: path
+        required: true
+        schema:
+          type: string
+    post:
+      operationId: RedlineJournalRest.ImageUpload
+      tags:
+        - Journal
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status-Response'
+  '/v1/def/bereich/{bereichId}/journalkat/verlaufsjournal':
+    parameters:
+      - name: bereichId
+        description: bereichId
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: RedlineJournalKatRest.GetCollectionVerlaufsjournal
+      tags:
+        - Journalkategorie
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JournalkategorieCollection'
+              examples:
+                bereich 2:
+                  value:
+                    data:
+                      - model:
+                          headId: '7'
+                          name: alle Einträge
+                          text: ''
+                          isDefault: true
+                          typ: Default
+                      - model:
+                          headId: '16'
+                          name: Arbeit
+                          text: ''
+                          isDefault: false
+                          typ: Default
+                      - model:
+                          headId: '36'
+                          name: Alltagsbegleitung AB
+                          text: ''
+                          isDefault: false
+                          typ: Default
+                      - model:
+                          headId: '37'
+                          name: Prozessbegleitung PB
+                          text: ''
+                          isDefault: false
+                          typ: Default
+                      - model:
+                          headId: '50'
+                          name: Gesundheit
+                          text: ''
+                          isDefault: false
+                          typ: Default
+                      - model:
+                          headId: '51'
+                          name: Entwicklungsplanung
+                          text: Entwicklungsplanung
+                          isDefault: false
+                          typ: Entwicklungsplanung
+                      - model:
+                          headId: '52'
+                          name: Arzttermine
+                          text: ''
+                          isDefault: false
+                          typ: Gesundheitsvorsorge
+                      - model:
+                          headId: '53'
+                          name: Vitalzeichen
+                          text: ''
+                          isDefault: false
+                          typ: Vitalzeichen
+                      - model:
+                          headId: '54'
+                          name: Medikation
+                          text: ''
+                          isDefault: false
+                          typ: Medikation
+                      - model:
+                          headId: '55'
+                          name: Hinweis
+                          text: ''
+                          isDefault: false
+                          typ: Hinweis
+                      - model:
+                          headId: '60'
+                          name: Stuhlgang
+                          text: ''
+                          isDefault: false
+                          typ: Stuhlgang
+                      - model:
+                          headId: '61'
+                          name: Menstruation
+                          text: ''
+                          isDefault: false
+                          typ: Menstruation
+                      - model:
+                          headId: '62'
+                          name: Medizinische Verordnung
+                          text: ''
+                          isDefault: false
+                          typ: MedVerordnung
+                      - model:
+                          headId: '63'
+                          name: Epilepsie
+                          text: ''
+                          isDefault: false
+                          typ: Epilepsie
+                      - model:
+                          headId: '75'
+                          name: NeuKat2
+                          text: ''
+                          isDefault: false
+                          typ: Default
+                      - model:
+                          headId: '91'
+                          name: Termine
+                          text: ''
+                          isDefault: false
+                          typ: Termin
+                      - model:
+                          headId: '92'
+                          name: Pflege-Massnahme
+                          text: ''
+                          isDefault: false
+                          typ: PflegeVerordnung
+                      - model:
+                          headId: '95'
+                          name: FB-Massnahmen
+                          text: ''
+                          isDefault: false
+                          typ: FBMassnahme
+                      - model:
+                          headId: '100'
+                          name: Medikation (Res. abgegeben)
+                          text: ''
+                          isDefault: false
+                          typ: ReserveMedikationAb
+                      - model:
+                          headId: '104'
+                          name: Profi für Profi Dokumentation
+                          text: ''
+                          isDefault: false
+                          typ: Default
+                      - model:
+                          headId: '106'
+                          name: Medikationänderung
+                          text: ''
+                          isDefault: false
+                          typ: MedikationUpdates
+  '/v1/def/bereich/{bereichId}/journalkat/tagesjournal':
+    parameters:
+      - name: bereichId
+        description: bereichId
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: RedlineJournalKatRest.GetCollectionTagesjournal
+      tags:
+        - Journalkategorie
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JournalkategorieCollection'
+              examples:
+                bereich 2:
+                  value:
+                    data:
+                      - model:
+                          headId: '7'
+                          name: alle Einträge
+                          text: ''
+                          isDefault: true
+                          typ: Default
+                      - model:
+                          headId: '16'
+                          name: Arbeit
+                          text: ''
+                          isDefault: false
+                          typ: Default
+                      - model:
+                          headId: '36'
+                          name: Alltagsbegleitung AB
+                          text: ''
+                          isDefault: false
+                          typ: Default
+                      - model:
+                          headId: '37'
+                          name: Prozessbegleitung PB
+                          text: ''
+                          isDefault: false
+                          typ: Default
+                      - model:
+                          headId: '50'
+                          name: Gesundheit
+                          text: ''
+                          isDefault: false
+                          typ: Default
+                      - model:
+                          headId: '51'
+                          name: Entwicklungsplanung
+                          text: Entwicklungsplanung
+                          isDefault: false
+                          typ: Entwicklungsplanung
+                      - model:
+                          headId: '52'
+                          name: Arzttermine
+                          text: ''
+                          isDefault: false
+                          typ: Gesundheitsvorsorge
+                      - model:
+                          headId: '53'
+                          name: Vitalzeichen
+                          text: ''
+                          isDefault: false
+                          typ: Vitalzeichen
+                      - model:
+                          headId: '55'
+                          name: Hinweis
+                          text: ''
+                          isDefault: false
+                          typ: Hinweis
+                      - model:
+                          headId: '60'
+                          name: Stuhlgang
+                          text: ''
+                          isDefault: false
+                          typ: Stuhlgang
+                      - model:
+                          headId: '61'
+                          name: Menstruation
+                          text: ''
+                          isDefault: false
+                          typ: Menstruation
+                      - model:
+                          headId: '62'
+                          name: Medizinische Verordnung
+                          text: ''
+                          isDefault: false
+                          typ: MedVerordnung
+                      - model:
+                          headId: '63'
+                          name: Epilepsie
+                          text: ''
+                          isDefault: false
+                          typ: Epilepsie
+                      - model:
+                          headId: '75'
+                          name: NeuKat2
+                          text: ''
+                          isDefault: false
+                          typ: Default
+                      - model:
+                          headId: '91'
+                          name: Termine
+                          text: ''
+                          isDefault: false
+                          typ: Termin
+                      - model:
+                          headId: '92'
+                          name: Pflege-Massnahme
+                          text: ''
+                          isDefault: false
+                          typ: PflegeVerordnung
+                      - model:
+                          headId: '95'
+                          name: FB-Massnahmen
+                          text: ''
+                          isDefault: false
+                          typ: FBMassnahme
+                      - model:
+                          headId: '100'
+                          name: Medikation (Res. abgegeben)
+                          text: ''
+                          isDefault: false
+                          typ: ReserveMedikationAb
+                      - model:
+                          headId: '104'
+                          name: Profi für Profi Dokumentation
+                          text: ''
+                          isDefault: false
+                          typ: Default
+                      - model:
+                          headId: '106'
+                          name: Medikationänderung
+                          text: ''
+                          isDefault: false
+                          typ: MedikationUpdates
+  '/v1/fcollection/{uuid}/images':
+    parameters:
+      - name: uuid
+        description: uuid
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: FlexFileCollectionRest.GetImages
+      tags:
+        - File-Collection
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/File-Collection'
+  '/v1/fcollectionelement/{elementUUID}/thumbnail/{width}/{height}':
+    parameters:
+      - name: elementUUID
+        description: elementUUID
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: width
+        description: width
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: height
+        description: height
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: FlexFileCollectionElementRest.GetThumbnail
+      tags:
+        - File-Collection
+      responses:
+        '200':
+          description: ok
+          content:
+            image/jpg:
+              schema:
+                type: string
+                format: binary
+  '/v1/fcollectionelement/{elementUUID}/image':
+    parameters:
+      - name: elementUUID
+        description: elementUUID
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: FlexFileCollectionElementRest.GetImage
+      tags:
+        - File-Collection
+      responses:
+        '200':
+          description: ok
+          content:
+            image/jpg:
+              schema:
+                type: string
+                format: binary
+            image/png:
+              schema:
+                type: string
+                format: binary
+            image/gif:
+              schema:
+                type: string
+                format: binary
+  '/v1/bereich/{bereichId}/kalender':
+    parameters:
+      - name: bereichId
+        description: bereichId
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: RedlineKalenderRest.GetCollection
+      tags:
+        - Kalender
+      parameters:
+        - name: datestart
+          in: query
+          schema:
+            type: string
+        - name: dateend
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KalendereintragCollection'
+  '/v1/bereich/{bereichId}/kalender/{journalId}':
+    parameters:
+      - name: bereichId
+        description: bereichId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: journalId
+        description: journalId
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: RedlineKalenderRest.GetEntity
+      tags:
+        - Kalender
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Kalendereintrag'
+  /v1/def/medikament:
+    get:
+      operationId: RedlineMedikamentDefRest.GetCollection
+      tags:
+        - Medikament
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MedikamentCollection'
+  '/v1/def/medikament/{medikamentDefId}':
+    parameters:
+      - name: medikamentDefId
+        description: medikamentDefId
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: RedlineMedikamentDefRest.GetEntity
+      tags:
+        - Medikament
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Medikament'
+              examples:
+                med 1:
+                  value:
+                    model:
+                      headId: '1'
+                      name: ASPIRIN Tabl 500 mg Erw
+                      beschreibung: ASPIRIN Tabl 500 mg Erw
+                      gTIN: null
+                      pharmacode: null
+                      verabreichungsform:
+                        headId: '27'
+                        label: Drageés
+                      image:
+                        headId: 21_img635814045094439267.jpg
+                        url: 'https://betatest.servline.ch/redline_test/index.php/Redline/Demo/Rest//v1/def/medikament/1/../../../../../Res/FileBase/RedlineMedikamentDefFile/21_img635814045094439267.jpg?Type=Download'
+        '404':
+          description: not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFound-Response'
+  '/v1/def/medikament/{medikamentDefId}/foto':
+    parameters:
+      - name: medikamentDefId
+        description: medikamentDefId
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: RedlineMedikamentDefRest.GetFoto
+      tags:
+        - Medikament
+      responses:
+        '200':
+          description: ok
+          content:
+            image/jpg:
+              schema:
+                type: string
+                format: binary
+            image/png:
+              schema:
+                type: string
+                format: binary
+            image/gif:
+              schema:
+                type: string
+                format: binary
+    post:
+      operationId: RedlineMedikamentDefRest.PostFoto
+      tags:
+        - Medikament
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Created-Response'
+        '409':
+          description: conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error-Response'
+  '/v1/medikation/{medikationId}/confirmation':
+    parameters:
+      - name: medikationId
+        description: medikationId
+        in: path
+        required: true
+        schema:
+          type: string
+    post:
+      operationId: RedlineMedikationRest.Confirmation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MedConformation'
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Created-Response'
+        '409':
+          description: conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error-Response'
+      tags:
+        - Medikamentenabgabe
+  '/v1/reservemedikation/{reserveMedikationId}/confirmation':
+    parameters:
+      - name: reserveMedikationId
+        description: reserveMedikationId
+        in: path
+        required: true
+        schema:
+          type: string
+    post:
+      operationId: RedlineReserveMedikationRest.Confirmation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MedConformation'
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Created-Response'
+        '409':
+          description: conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error-Response'
+      tags:
+        - Medikamentenabgabe
+  /v1/medabgabe:
+    get:
+      operationId: RedlineMedAbgabeRest.GetCollection
+      tags:
+        - Medikamentenabgabe
+      parameters:
+        - name: datum
+          in: query
+          schema:
+            type: string
+        - name: timeslots
+          in: query
+          schema:
+            type: string
+        - name: bereiche
+          in: query
+          schema:
+            type: string
+        - schema:
+            type: string
+          in: query
+          name: klient
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MedikamnetenabgabeCollection'
+              examples:
+                med alt:
+                  value:
+                    data:
+                      - model:
+                          headId: '12'
+                          bezeichung: ''
+                          medikament: null
+                          name: Risperdal 10mg
+                          datum: '2006-12-04'
+                          datumStop: null
+                          arzt: ''
+                          bemerkung: ''
+                          klient:
+                            headId: '16'
+                            label: Muster Peter
+                            kuerzel: null
+                          dosis: '1'
+                          abgabeTimeslot: Mo
+                          abgabeStatus: '0'
+                          abgabeUser: ''
+                          abgabeUserNameFirst: ''
+                          abgabeUserNameLast: ''
+                          abgabeUserKuerzel: ''
+                      - model:
+                          headId: '12'
+                          bezeichung: ''
+                          medikament: null
+                          name: Risperdal 10mg
+                          datum: '2006-12-04'
+                          datumStop: null
+                          arzt: ''
+                          bemerkung: ''
+                          klient:
+                            headId: '16'
+                            label: Muster Peter
+                            kuerzel: null
+                          dosis: '1'
+                          abgabeTimeslot: Mi
+                          abgabeStatus: '0'
+                          abgabeUser: ''
+                          abgabeUserNameFirst: ''
+                          abgabeUserNameLast: ''
+                          abgabeUserKuerzel: ''
+                      - model:
+                          headId: '12'
+                          bezeichung: ''
+                          medikament: null
+                          name: Risperdal 10mg
+                          datum: '2006-12-04'
+                          datumStop: null
+                          arzt: ''
+                          bemerkung: ''
+                          klient:
+                            headId: '16'
+                            label: Muster Peter
+                            kuerzel: null
+                          dosis: '1'
+                          abgabeTimeslot: Ab
+                          abgabeStatus: '0'
+                          abgabeUser: ''
+                          abgabeUserNameFirst: ''
+                          abgabeUserNameLast: ''
+                          abgabeUserKuerzel: ''
+                      - model:
+                          headId: '90'
+                          bezeichung: ''
+                          medikament:
+                            headId: '1'
+                            label: ASPIRIN Tabl 500 mg Erw
+                          name: ASPIRIN Tabl 500 mg Erw
+                          datum: '2018-08-14'
+                          datumStop: null
+                          arzt: Dr. Sommer
+                          bemerkung: ''
+                          klient:
+                            headId: '2'
+                            label: Poronto Laura
+                            kuerzel: null
+                          dosis: '1'
+                          abgabeTimeslot: Mo
+                          abgabeStatus: '0'
+                          abgabeUser: ''
+                          abgabeUserNameFirst: ''
+                          abgabeUserNameLast: ''
+                          abgabeUserKuerzel: ''
+                      - model:
+                          headId: '91'
+                          bezeichung: ''
+                          medikament:
+                            headId: '1'
+                            label: ASPIRIN Tabl 500 mg Erw
+                          name: ASPIRIN Tabl 500 mg Erw
+                          datum: '2018-08-14'
+                          datumStop: null
+                          arzt: Dr. Sommer
+                          bemerkung: ''
+                          klient:
+                            headId: '30'
+                            label: Grichting Paul
+                            kuerzel: null
+                          dosis: '1'
+                          abgabeTimeslot: Mo
+                          abgabeStatus: '0'
+                          abgabeUser: ''
+                          abgabeUserNameFirst: ''
+                          abgabeUserNameLast: ''
+                          abgabeUserKuerzel: ''
+                      - model:
+                          headId: '125'
+                          bezeichung: ''
+                          medikament:
+                            headId: '1'
+                            label: ASPIRIN Tabl 500 mg Erw
+                          name: ASPIRIN Tabl 500 mg Erw
+                          datum: '2019-06-17'
+                          datumStop: null
+                          arzt: Dr. Müller
+                          bemerkung: ''
+                          klient:
+                            headId: '2'
+                            label: Poronto Laura
+                            kuerzel: null
+                          dosis: '1'
+                          abgabeTimeslot: Mo
+                          abgabeStatus: '0'
+                          abgabeUser: ''
+                          abgabeUserNameFirst: ''
+                          abgabeUserNameLast: ''
+                          abgabeUserKuerzel: ''
+                      - model:
+                          headId: '60'
+                          bezeichung: ''
+                          medikament:
+                            headId: '7'
+                            label: RITALIN LA Kaps 40 mg
+                          name: RITALIN LA Kaps 40 mg
+                          datum: '2015-11-15'
+                          datumStop: null
+                          arzt: Dr.Gut
+                          bemerkung: Er nimmt das Ritalin mit Wasser vor dem Frühstück ein.
+                          klient:
+                            headId: '30'
+                            label: Grichting Paul
+                            kuerzel: null
+                          dosis: 1/4
+                          abgabeTimeslot: Mo
+                          abgabeStatus: '0'
+                          abgabeUser: ''
+                          abgabeUserNameFirst: ''
+                          abgabeUserNameLast: ''
+                          abgabeUserKuerzel: ''
+  /v1/medabgabe/statusupdate:
+    post:
+      operationId: RedlineMedAbgabeRest.StatusUpdate
+      tags:
+        - Medikamentenabgabe
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Medikamentenabgabe-Request'
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ok-Response'
+        '409':
+          description: conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error-Response'
+  /v1/openapidef:
+    get:
+      operationId: RedlineOpenApiDefRest.GetOpenApiDef
+      tags:
+        - OpenApi
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/File-Response'
+  '/v1/bereich/{bereichId}/klient/{klientId}/infos':
+    parameters:
+      - schema:
+          type: string
+        name: bereichId
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: klientId
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags:
+        - Klient
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Klienteninfos'
+              examples:
+                example-1:
+                  value:
+                    status:
+                      status: Aktiv
+                      eintritt: '1990-02-01'
+                      austritt: null
+                    daten:
+                      nummer: '123456'
+                      vorname: Test
+                      nachname: Person
+                      kuerzel: TP
+                      gebdatum: '1956-12-12'
+                      zivilstand: ledig
+                      sprache: Deutsch
+                      nationalitt: Schweiz
+                      aufenthaltsbewilligung: null
+                      konfession: Evangelisch
+                    ahv_ch: 756.1236.123
+                    ahv_fl: null
+                    einwohnerKontrolle:
+                      schriftenOrt: Chur
+                      schriftenKanton: GR
+                      heimatort: Zürich
+                      geburtsort: St. Gallen
+                    bank:
+                      postkonto: 84.12323.1
+                      name: Post Finance
+                      ort: Bern
+                      kontoNr: null
+                      kontoIBAN: CH850 0000 0123 4567 8910
+                      inhaber: Test Person
+                    verfuegung: null
+                    adresse:
+                      coFirma: null
+                      strasse: Weg 1
+                      strasseZusatz: null
+                      postfach: null
+                      plz: '8000'
+                      ort: Bern
+                      kanton: BE
+                      land: CH
+                    kontakt:
+                      tel1: 081 333 11 11
+                      tel2: null
+                      mobile: 079 900 12 34
+                      email: testpeson@gmail.com
+                    signalelemente:
+                      geschlecht: Männlich
+                      groesse: 174 cm
+                      gewicht: 74 kg
+                      augenfarbe: null
+                      haarfarbe: Grau-Braun
+                      haarlaenge: null
+                      statur: Fest
+                      besonderes: null
+                      bevorzugOrt: Hängematte
+                      foto:
+                        headId: string
+                        url: string
+      operationId: get-v1-bereich-bereichId-klient-klientId-infos
+      description: ''
+  '/v1/bereich/{bereichId}/klient/{klientId}/notfall':
+    parameters:
+      - schema:
+          type: string
+        name: bereichId
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: klientId
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags:
+        - Klient
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Klientennotfall'
+              examples:
+                example-1:
+                  value:
+                    diagnose: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas aliquam mollis leo vel ultricies. Duis id metus vel ligula feugiat rhoncus. Nam mollis nisi vel gravida viverra. Nulla porta enim in ex ullamcorper, eu semper lorem rhoncus. Curabitur at velit facilisis, congue odio in, luctus elit. Vivamus pretium risus et tortor dapibus molestie. Ut ultrices.'
+                    suchtmittel: 'Quisque tristique felis tempus lacinia ultricies. Sed eget euismod lectus. Mauris dui mauris, tristique ut rutrum vitae, ornare et enim.'
+                    allgemein: 'Fusce in viverra massa, eget vehicula diam. Nullam elementum urna ante, ac aliquet tellus egestas ac. Nulla nec mattis eros.'
+                    massnahmen: 'Nam mollis lectus orci, nec sagittis ipsum rutrum quis. Donec elementum volutpat dignissim. Duis mauris tortor, luctus nec ullamcorper ac, ultrices vel ipsum. Nam ex metus, maximus eget iaculis et.'
+      operationId: get-v1-bereich-bereichId-klient-klientId-notfall
+  '/v1/bereich/{bereichId}/klient/{klientId}/versicherung':
+    parameters:
+      - schema:
+          type: string
+        name: bereichId
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: klientId
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags:
+        - Klient
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Klientenversicherung'
+              examples:
+                example-1:
+                  value:
+                    kvg:
+                      name: Sanitas
+                      sektion: bern
+                      nummer: '1234'
+                      bagNummer: '12345'
+                      kartenNummer: '1234'
+                      tel: 081 353 41 00
+                      email: sanitas@versicherung.ch
+                      taggeld: true
+                      bemerkungen: null
+                    vvg:
+                      name: Winterthur
+                      sektion: Zürich
+                      nummer: '123456'
+                      tel: 081 500 50 51
+                      email: winterthur@versicherung.ch
+                    unfall: null
+                    haftpflicht: null
+                    iv:
+                      details: Ja
+                      email: IV@admin.ch
+                    ergaenzungsleistungen:
+                      erhaltet: true
+                      bemerkungen: null
+      operationId: get-v1-bereich-bereichId-klient-klientId-versicherung
+  '/v1/bereich/{bereichId}/klient/{klientId}/situation':
+    parameters:
+      - schema:
+          type: string
+        name: bereichId
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: klientId
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags:
+        - Klient
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Klientensituation'
+              examples:
+                example-1:
+                  value:
+                    rueckblick: 'Nam mollis lectus orci, nec sagittis ipsum rutrum quis. Donec elementum volutpat dignissim. Duis mauris tortor, luctus nec ullamcorper ac, ultrices vel ipsum. Nam ex metus, maximus eget iaculis et.'
+                    klinikaufenthalte: 'Pellentesque efficitur mauris ut arcu ultricies congue. Cras ut fermentum urna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ac metus ultrices, luctus nibh in, gravida metus. Aliquam quis.'
+                    wohnsituation: 'In facilisis auctor mi, ac elementum sapien porttitor quis. Vestibulum.'
+                    tagesablauf: 'Suspendisse arcu mauris, porta at odio ut, cursus semper neque.'
+                    soziales: ''
+                    schwierigkeiten: 'Quisque accumsan id velit nec accumsan. Aenean nibh libero, vehicula.'
+                    besonderes: 'Nulla molestie, urna nec placerat fermentum, magna ante elementum elit, a sagittis justo ex vel.'
+      operationId: get-v1-bereich-bereichId-klient-klientId-situation
+  '/v1/bereich/{bereichId}/klient/{klientId}/umfeld':
+    parameters:
+      - schema:
+          type: string
+        name: bereichId
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: klientId
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags:
+        - Klient
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Klientenumfeld'
+              examples:
+                example-1:
+                  value:
+                    data:
+                      - headId: '1'
+                        kategorieId: '1'
+                        kategorie: Mutter
+                        istNofallkontakt: true
+                        istProfilkontakt: true
+                        adresse:
+                          headId: string
+                          nachname: Mutter
+                          vorname: Test
+                          tel1: 081 000 00 00
+                          tel2: ''
+                          mobil: ''
+                          email: mutter@gmail.com
+                          erreichbarkeit: string
+                          strasse: string
+                          plz: string
+                          ort: string
+                          firmabehoerde: string
+                      - headId: '2'
+                        kategorieId: '1'
+                        kategorie: Vater
+                        istNofallkontakt: true
+                        istProfilkontakt: true
+                        adresse:
+                          headId: string
+                          nachname: Vater
+                          vorname: Test
+                          tel1: 000 111 02 02
+                          tel2: 0043 1235 456 88
+                          mobil: 079 925 56 56
+                          email: null
+                          erreichbarkeit: string
+                          strasse: string
+                          plz: string
+                          ort: string
+                          firmabehoerde: string
+                      - headId: '3'
+                        kategorieId: '1'
+                        kategorie: Nachbar
+                        istNofallkontakt: false
+                        istProfilkontakt: false
+                        adresse:
+                          headId: string
+                          nachname: string
+                          vorname: string
+                          tel1: null
+                          tel2: ''
+                          mobil: ''
+                          email: nachbar@gmail.com
+                          erreichbarkeit: string
+                          strasse: string
+                          plz: string
+                          ort: string
+                          firmabehoerde: string
+      operationId: get-v1-bereich-bereichId-klient-klientId-umfeld
+  /v1/verordnungen:
+    get:
+      summary: Your GET endpoint
+      tags:
+        - Verordnungen
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VerordnungsCollection'
+              examples:
+                example-1:
+                  value:
+                    data:
+                      - klientId: '1'
+                        headId: '1'
+                        verordnung: Verband Wechseln
+                        terminart: '10'
+                        startdatum: '2020-05-02'
+                        enddatum: '2020-06-15'
+                        zeitvon: '17:00:00'
+                        zeitbis: '17:15:00'
+                        wann: präabends
+                        istErledigbar: true
+                        verordner: Dr. Who
+                      - klientId: '2'
+                        headId: '2'
+                        verordnung: Wunde desinfizieren
+                        terminart: '30'
+                        startdatum: '2020-04-02'
+                        enddatum: '2020-06-15'
+                        zeitvon: '10:00:00'
+                        zeitbis: '10:15:00'
+                        wann: vormittags
+                        istErledigbar: false
+                        verordner: Dr. House
+      operationId: get-v1-verordnungen
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: klientId
+  '/v1/verordnungen/{verordnungId}/wunddokumentation':
+    parameters:
+      - schema:
+          type: string
+        name: verordnungId
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags:
+        - Verordnungen
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WunddokumentationCollection'
+              examples:
+                example-1:
+                  value:
+                    data:
+                      - headId: '1'
+                        datumzeit: '2020-05-02 10:23'
+                        bemerkung: Wollte nicht
+                        foto:
+                          headId: string
+                          url: string
+                      - headId: '2'
+                        datumzeit: '2020-05-03 14:23'
+                        bemerkung: Ging gut
+                        foto:
+                          headId: string
+                          url: string
+      operationId: get-v1-verordnungen-verordnungId-wunddokumentation
+  '/v1/verordnungen/{verordnungId}/wunddokumentation/{wunddokumentationId}':
+    parameters:
+      - schema:
+          type: string
+        name: verordnungId
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: wunddokumentationId
+        in: path
+        required: true
+    post:
+      summary: ''
+      operationId: post-v1-verordnungen-verordnungId-wunddokumentation-wunddokumentationId
+      responses:
+        '200':
+          description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Wunddokumentation'
+      tags:
+        - Verordnungen
+    delete:
+      summary: ''
+      operationId: delete-v1-verordnungen-verordnungId-wunddokumentation-wunddokumentationId
+      responses:
+        '200':
+          description: OK
+      tags:
+        - Verordnungen
+  '/v1/verordnungen/{verordnungId}/wunddokumentation/{wunddokumentationId}/foto':
+    parameters:
+      - schema:
+          type: string
+        name: verordnungId
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: wunddokumentationId
+        in: path
+        required: true
+    get:
+      tags:
+        - Verordnungen
+      responses:
+        '200':
+          description: ok
+          content:
+            image/gif:
+              schema:
+                type: string
+                format: binary
+            image/png:
+              schema:
+                type: string
+                format: binary
+            image/jpg:
+              schema:
+                type: string
+                format: binary
+      operationId: get-v1-verordnungen-verordnungId-wunddokumentation-wunddokumentationId-foto
+    post:
+      operationId: post-v1-verordnungen-verordnungId-wunddokumentation-wunddokumentationId-foto
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Created-Response'
+        '409':
+          description: conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error-Response'
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      tags:
+        - Verordnungen
+      description: ''
+  /v1/vitalzeichen:
+    get:
+      summary: Your GET endpoint
+      tags:
+        - Vitalzeichen
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VitalzeichenCollection'
+      operationId: get-v1-vitalzeichen
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: klientId
+  '/v1/vitalzeichen/{vitalzeichenId}':
+    parameters:
+      - schema:
+          type: string
+        name: vitalzeichenId
+        in: path
+        required: true
+    post:
+      summary: ''
+      operationId: post-v1-vitalzeichen-vitalzeichenId
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Created-Response'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Vitalzeichen'
+      tags:
+        - Vitalzeichen
+    delete:
+      summary: ''
+      operationId: delete-v1-vitalzeichen-vitalzeichenId
+      responses:
+        '200':
+          description: OK
+      tags:
+        - Vitalzeichen
+  /v1/stuhlgang:
+    get:
+      summary: Your GET endpoint
+      tags:
+        - Stuhlgang
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StuhlgangCollection'
+      operationId: get-v1-stuhlgang
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: klientId
+  '/v1/stuhlgang/{stuhlgangId}':
+    parameters:
+      - schema:
+          type: string
+        name: stuhlgangId
+        in: path
+        required: true
+    post:
+      summary: ''
+      operationId: post-v1-stuhlgang-stuhlgangId
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Created-Response'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Stuhlgang'
+      tags:
+        - Stuhlgang
+    delete:
+      summary: ''
+      operationId: delete-v1-stuhlgang-stuhlgangId
+      responses:
+        '200':
+          description: OK
+      description: ''
+      tags:
+        - Stuhlgang
+  /v1/def/stuhlgang/art:
+    get:
+      summary: Your GET endpoint
+      tags:
+        - Stuhlgang
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StuhlgangArtCollection'
+      operationId: get-v1-def-stuhlgang-art
+  /v1/def/stuhlgang/farbcode:
+    get:
+      summary: Your GET endpoint
+      tags:
+        - Stuhlgang
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FarbCollection'
+      operationId: get-v1-def-stuhlgang-farbcode
+  /v1/menstruation:
+    get:
+      summary: Your GET endpoint
+      tags:
+        - Menstruation
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MenstruationCollection'
+      operationId: get-v1-menstruation
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: klientId
+  '/v1/menstruation/{menstruationsId}':
+    parameters:
+      - schema:
+          type: string
+        name: menstruationsId
+        in: path
+        required: true
+    post:
+      summary: ''
+      operationId: post-v1-menstruation-menstruationsId
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Created-Response'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Menstruation'
+      tags:
+        - Menstruation
+    delete:
+      summary: ''
+      operationId: delete-v1-menstruation-menstruationsId
+      responses:
+        '200':
+          description: OK
+      tags:
+        - Menstruation
+  /v1/def/menstruation/art:
+    get:
+      summary: Your GET endpoint
+      tags:
+        - Menstruation
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FarbCollection'
+      operationId: get-v1-def-menstruation-art
+  /v1/def/menstruation/befindlichkeit:
+    get:
+      summary: Your GET endpoint
+      tags:
+        - Menstruation
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BefindlichkeitCollection'
+      operationId: get-v1-def-menstruation-befindlichkeit
+  /v1/epilepsie:
+    get:
+      summary: Your GET endpoint
+      tags:
+        - Epilepsie
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EpilepsieCollection'
+      operationId: get-v1-epilepsie
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: klientId
+  '/v1/epilepsie/{epilepsieId}':
+    parameters:
+      - schema:
+          type: string
+        name: epilepsieId
+        in: path
+        required: true
+    post:
+      summary: ''
+      operationId: post-v1-epilepsie-epilepsieId
+      responses:
+        '200':
+          description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Epilepsie'
+        description: ''
+      tags:
+        - Epilepsie
+    delete:
+      summary: ''
+      operationId: delete-v1-epilepsie-epilepsieId
+      responses:
+        '200':
+          description: OK
+      tags:
+        - Epilepsie
+  /v1/hilfsmittel:
+    get:
+      summary: Your GET endpoint
+      tags:
+        - Hilfsmittel
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HilfsmittelCollection'
+      operationId: get-v1-hilfsmittel
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: klientId
+  /v1/sicherheit:
+    get:
+      summary: Your GET endpoint
+      tags:
+        - Sicherheit
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MassnahmeCollection'
+      operationId: get-v1-sicherheit
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: klientId
+  /v1/gesundheitstermine/termine:
+    get:
+      summary: Your GET endpoint
+      tags:
+        - Termin
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GesundheitsterminCollection'
+      operationId: get-v1-gesundheitstermine-termine
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: klientId
+  /v1/gesundheitstermine/impfungen:
+    get:
+      summary: Your GET endpoint
+      tags:
+        - Termin
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImpfungCollection'
+      operationId: get-v1-gesundheitstermine-impfungen
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: klientId
+  /v1/pflege:
+    get:
+      summary: Your GET endpoint
+      tags:
+        - Pflege
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PflegeanleitungCollection'
+      operationId: get-v1-pflege
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: kientId
+  /v1/schmerzen:
+    get:
+      summary: Your GET endpoint
+      tags:
+        - Schmerzen
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SchmerzenCollection'
+      operationId: get-v1-schmerzen
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: klientId
+  /v1/fbmassnahmen:
+    get:
+      summary: Your GET endpoint
+      tags:
+        - FB
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FBCollection'
+      operationId: get-v1-fbmassnahmen
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: klientId
+  /v1/reservemedabgabe:
+    get:
+      operationId: RedlineReserveMedAbgabeRest.GetCollection
+      tags:
+        - Medikamentenabgabe
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReservemedikamnetenabgabeCollection'
+              examples:
+                example-1:
+                  value:
+                    data:
+                      - headId: '1'
+                        abgabeDatum: string
+                        abgabeZeit: string
+                        indikation: string
+                        wirkung: string
+                        menge: '1'
+                        reservemedId: '1'
+                      - headId: '2'
+                        abgabeDatum: string
+                        abgabeZeit: string
+                        indikation: string
+                        wirkung: string
+                        menge: '1'
+                        reservemedId: '1'
+                      - headId: '3'
+                        abgabeDatum: string
+                        abgabeZeit: string
+                        indikation: string
+                        wirkung: string
+                        menge: 50 mg
+                        reservemedId: '2'
+                      - headId: '4'
+                        abgabeDatum: string
+                        abgabeZeit: string
+                        indikation: string
+                        wirkung: string
+                        menge: '2'
+                        reservemedId: '3'
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: klient
+        - schema:
+            type: string
+          in: query
+          name: datum
+    post:
+      summary: ''
+      operationId: RedlineReserveMedAbgabeRest.Create
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ok-Response'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Reservemedikamnetenabgabe'
+      tags:
+        - Medikamentenabgabe
+      description: ''
+  /v1/reservemed:
+    get:
+      summary: Your GET endpoint
+      tags:
+        - Medikamentenabgabe
+      operationId: get-v1-reservemedikamente
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReservemedikationCollection'
+              examples:
+                example-1:
+                  value:
+                    data:
+                      - model:
+                          headId: '1'
+                          bezeichung: Aspirin
+                          medikament:
+                            headId: '1'
+                            label: string
+                          name: string
+                          datum: string
+                          datumStop: string
+                          arzt: Dr. Who
+                          indikation: Bei Kopfschmerzen
+                          klient:
+                            headId: '1'
+                            label: string
+                            kuerzel: string
+                          maximaleTagesDosis: '3'
+                      - model:
+                          headId: '2'
+                          bezeichung: Aspirin
+                          medikament:
+                            headId: '1'
+                            label: string
+                          name: string
+                          datum: string
+                          datumStop: string
+                          arzt: Dr. House
+                          indikation: Bei Kopfschmerzen
+                          klient:
+                            headId: '1'
+                            label: string
+                            kuerzel: string
+                          maximaleTagesDosis: 100 mg
+                      - model:
+                          headId: '3'
+                          bezeichung: Aspirin
+                          medikament:
+                            headId: '1'
+                            label: string
+                          name: string
+                          datum: string
+                          datumStop: string
+                          arzt: Dr. hohlwoll
+                          indikation: Bei Kopfschmerzen
+                          klient:
+                            headId: '1'
+                            label: string
+                            kuerzel: string
+                          maximaleTagesDosis: '3'
+      parameters:
+        - name: datum
+          in: query
+          schema:
+            type: string
+        - name: bereiche
+          in: query
+          schema:
+            type: string
+        - schema:
+            type: string
+          in: query
+          name: klient
+components:
+  schemas:
+    Login-Request:
+      type: object
+      properties:
+        user:
+          type: string
+        password:
+          type: string
+      x-tags:
+        - Benutzer
+    Message:
+      type: object
+      properties:
+        message:
+          type: string
+        field:
+          type: string
+        type:
+          type: string
+        code:
+          type: string
+      x-tags:
+        - Response
+    Login-Response:
+      type: object
+      x-tags:
+        - Response
+      properties:
+        data:
+          type: object
+          properties:
+            currentBereichId:
+              type: string
+            hasMobilePremium:
+              type: boolean
+        status:
+          type: string
+        message:
+          type: string
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Message'
+        details:
+          type: object
+    Error-Response:
+      type: object
+      x-tags:
+        - Response
+      properties:
+        status:
+          type: string
+        message:
+          type: string
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Message'
+        details:
+          type: object
+          properties:
+            details:
+              type: string
+    Ok-Response:
+      type: object
+      properties:
+        status:
+          type: string
+        message:
+          type: string
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Message'
+        details:
+          type: object
+      x-tags:
+        - Response
+    SetBereich-Request:
+      type: object
+      properties:
+        bereichId:
+          type: string
+      x-tags:
+        - Benutzer
+    User:
+      type: object
+      properties:
+        model:
+          type: object
+          properties:
+            headId:
+              type: string
+            login:
+              type: string
+            nameFirst:
+              type: string
+            nameLast:
+              type: string
+            kuerzel:
+              type: string
+            geburtsdatum:
+              type: string
+      x-tags:
+        - Benutzer
+    UserStatus-Response:
+      type: object
+      properties:
+        isLoggedIn:
+          type: boolean
+        currentBereichId:
+          type: string
+        username:
+          type: string
+      x-tags:
+        - Response
+    Bereich:
+      type: object
+      properties:
+        model:
+          type: object
+          properties:
+            headId:
+              type: string
+            name:
+              type: string
+            text:
+              type: string
+      x-tags:
+        - Benutzer
+    NotFound-Response:
+      type: object
+      properties:
+        status:
+          type: string
+        message:
+          type: string
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Message'
+        details:
+          type: object
+      x-tags:
+        - Response
+    Klientabfrage:
+      type: object
+      properties:
+        model:
+          type: object
+          properties:
+            headId:
+              type: string
+            nachname:
+              type: string
+            vorname:
+              type: string
+            kuerzel:
+              type: string
+            heimNummer:
+              type: string
+            foto:
+              type: object
+              properties:
+                headId:
+                  type: string
+                url:
+                  type: string
+      x-tags:
+        - Klient
+    Klient:
+      type: object
+      properties:
+        model:
+          type: object
+          properties:
+            headId:
+              type: string
+            nachname:
+              type: string
+            vorname:
+              type: string
+            kuerzel:
+              type: string
+            heimNummer:
+              type: string
+            foto:
+              type: object
+              properties:
+                headId:
+                  type: string
+                url:
+                  type: string
+            eintritt:
+              type: string
+            austritt:
+              type: string
+            geburtsdatum:
+              type: string
+            geschlecht:
+              type: object
+              properties:
+                key:
+                  type: string
+                label:
+                  type: string
+            zivilstand:
+              type: object
+              properties:
+                headId:
+                  type: string
+                label:
+                  type: string
+            sprache:
+              type: string
+            nationalitaet:
+              type: string
+            aufenthaltsbewilligung:
+              type: string
+            konfession:
+              type: object
+              properties:
+                headId:
+                  type: string
+                label:
+                  type: string
+            aHVNummer:
+              type: string
+            schriften:
+              type: string
+            kanton:
+              type: string
+            heimatort:
+              type: string
+            adresseFirma:
+              type: string
+            adresseStrasse:
+              type: string
+            adresseStrasseZusatz:
+              type: string
+            adressePostfach:
+              type: string
+            adressePLZ:
+              type: string
+            adresseOrt:
+              type: string
+            adresseKanton:
+              type: object
+              properties:
+                key:
+                  type: string
+                label:
+                  type: string
+            adresseLand:
+              type: string
+            phone:
+              type: string
+            phone2:
+              type: string
+            mobile:
+              type: string
+            email:
+              type: string
+            notfallnummer:
+              type: string
+            notfallPerson:
+              type: string
+            notfallnummer2:
+              type: string
+            notfallPerson2:
+              type: string
+            notfallDiagnose:
+              type: string
+            notfallSuchtmittel:
+              type: string
+            krankenkasseName:
+              type: string
+            krankenkasseSektion:
+              type: string
+            krankenkasseNummer:
+              type: string
+            kKBAGNr:
+              type: string
+            kKKartenNr:
+              type: string
+            krankenkassePhone:
+              type: string
+            krankenkasseEmail:
+              type: string
+            krankenkasseTaggeld:
+              type: object
+              properties:
+                key:
+                  type: string
+                label:
+                  type: string
+            krankenkasseBemerkungen:
+              type: string
+            krankenkasseZusatzName:
+              type: string
+            krankenkasseZusatzSektion:
+              type: string
+            krankenkasseZusatzNummer:
+              type: string
+            krankenkasseZusatzPhone:
+              type: string
+            krankenkasseZusatzEmail:
+              type: string
+            unfall:
+              type: string
+            unfallEmail:
+              type: string
+            haftpflicht:
+              type: string
+            haftpflichtEmail:
+              type: string
+            status:
+              type: object
+              properties:
+                key:
+                  type: string
+                label:
+                  type: string
+            pVPatientenverfuegung:
+              type: object
+              properties:
+                key:
+                  type: string
+                label:
+                  type: string
+            pVAblageort:
+              type: string
+            notfallMedikation:
+              type: string
+            notfallMassnahmen:
+              type: string
+      x-tags:
+        - Klient
+    Created-Response:
+      type: object
+      properties:
+        id:
+          type: string
+        status:
+          type: string
+        message:
+          type: string
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Message'
+        details:
+          type: object
+      x-tags:
+        - Response
+    File-Collection-Image:
+      type: object
+      properties:
+        uuid:
+          type: string
+        w:
+          type: integer
+        h:
+          type: integer
+      x-tags:
+        - File-Collection
+    Journalabfrage:
+      type: object
+      properties:
+        model:
+          type: object
+          properties:
+            headId:
+              type: string
+            headUpdateDate:
+              type: string
+            datum:
+              description: |-
+                Standardeintraege: Datum des Eintrages
+                Termineintraege: Datum des Termins
+              type: string
+            datumAb:
+              description: 'Termineintraege: Startzeit ab wann der Termin aktiv ist.'
+              type: string
+            datumBis:
+              description: |-
+                Termineintraege: Datum bis wann der Termin aktiv ist.
+                null = Der Eintrag hat kein definiertes Enddatum.
+              type: string
+            zeit:
+              description: |-
+                Uhrzeit fuer welche der Eintrag erfasst wurde
+                Beispiel: 14:45
+              type: string
+            zeitVon:
+              description: |-
+                Termineintraege: Start-Uhrzeit wenn es sich um einen Termin mit definiertem Zeitraum handelt.
+                Beispiel: 14:30
+              type: string
+            zeitBis:
+              description: |-
+                Termineintraege: Ende-Uhrzeit wenn es sich um einen Termin mit definiertem Zeitraum handelt.
+                Beispiel: 15:20
+              type: string
+            name:
+              type: string
+            text:
+              type: string
+            kategorie:
+              description: |-
+                Kommaseparierte Kategorien-Id Liste mit Kategorien zu denen dieser Eintrag gehoert.
+                Beispiel: ,2,11,17,
+              type: string
+            terminart:
+              description: |-
+                Wertebereich:
+                10=einmalig,
+                20=taeglich,
+                30=jede Woche,
+                40=alle 2 Wochen,
+                50=jeden Monat,
+                55=alle 3 Monate,
+                60=jedes Jahr
+              type: string
+            klient:
+              type: object
+              properties:
+                headId:
+                  type: string
+                label:
+                  type: string
+                kuerzel:
+                  type: string
+            betreuer:
+              type: object
+              properties:
+                headId:
+                  type: string
+                label:
+                  type: string
+                kuerzel:
+                  type: string
+            link:
+              type: string
+            linkTable:
+              type: string
+            linkInfo:
+              type: object
+              properties:
+                title:
+                  type: string
+                textZeit:
+                  type: string
+                text:
+                  type: string
+                textAttrs:
+                  type: string
+            fileCollection:
+              description: Id einer File-Collection welche z.b. Bilder enthaelt die zu diesen Eintrag gehoeren.
+              type: string
+            fileCollectionInfo:
+              description: |-
+                Vorschau Informationen zur verlinkten File-Collection.
+                Enthaelt z.b. die url zum Vorschaubild des ersten Bildes der Collection.
+              type: object
+              properties:
+                uuid:
+                  type: string
+                data:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/File-Collection-Image'
+            isReminder:
+              description: Definiert ob dieser Eintrag eine Erinnerung ist oder nicht
+              type: boolean
+      x-tags:
+        - Journal
+    Journaleintrag:
+      type: object
+      properties:
+        model:
+          type: object
+          properties:
+            datum:
+              type: string
+            zeit:
+              type: string
+            text:
+              type: string
+            kategorie:
+              type: string
+            bereiche:
+              type: string
+            klientId:
+              type: string
+      x-tags:
+        - Journal
+    Status-Response:
+      type: object
+      properties:
+        status:
+          type: string
+        message:
+          type: string
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Message'
+        details:
+          type: object
+      x-tags:
+        - Response
+    Journalkategorie:
+      type: object
+      properties:
+        model:
+          type: object
+          properties:
+            headId:
+              type: string
+            name:
+              type: string
+            text:
+              type: string
+            isDefault:
+              type: boolean
+            typ:
+              type: string
+      x-tags:
+        - Journal
+    File-Collection-File:
+      type: object
+      properties:
+        model:
+          type: object
+          properties:
+            uuid:
+              type: string
+            w:
+              type: integer
+            h:
+              type: integer
+      x-tags:
+        - File-Collection
+    Kalendereintrag:
+      type: object
+      properties:
+        model:
+          type: object
+          properties:
+            headId:
+              type: string
+            title:
+              type: string
+            dateStart:
+              type: string
+            dateEnd:
+              type: string
+            color:
+              type: string
+            timeStart:
+              type: string
+            timeEnd:
+              type: string
+            klient:
+              type: object
+              properties:
+                headId:
+                  type: string
+                label:
+                  type: string
+                kuerzel:
+                  type: string
+            betreuer:
+              type: object
+              properties:
+                headId:
+                  type: string
+                label:
+                  type: string
+                kuerzel:
+                  type: string
+            kategorie:
+              type: string
+            terminart:
+              type: string
+            text:
+              type: string
+      x-tags:
+        - Kalender
+    Medikament:
+      type: object
+      properties:
+        model:
+          type: object
+          properties:
+            headId:
+              type: string
+            name:
+              type: string
+            beschreibung:
+              type: string
+            gTIN:
+              type: string
+            pharmacode:
+              type: string
+            verabreichungsform:
+              type: object
+              properties:
+                headId:
+                  type: string
+                label:
+                  type: string
+            image:
+              type: object
+              properties:
+                headId:
+                  type: string
+                url:
+                  type: string
+      x-tags:
+        - Medikament
+    Medikamentenabgabe:
+      type: object
+      properties:
+        model:
+          type: object
+          properties:
+            headId:
+              type: string
+            bezeichung:
+              type: string
+            medikament:
+              type: object
+              properties:
+                headId:
+                  type: string
+                label:
+                  type: string
+            name:
+              type: string
+            datum:
+              type: string
+            datumStop:
+              type: string
+            arzt:
+              type: string
+            bemerkung:
+              type: string
+            klient:
+              type: object
+              properties:
+                headId:
+                  type: string
+                label:
+                  type: string
+                kuerzel:
+                  type: string
+            dosis:
+              type: string
+            abgabeTimeslot:
+              type: string
+            abgabeStatus:
+              type: string
+            abgabeUser:
+              type: string
+            abgabeUserNameFirst:
+              type: string
+            abgabeUserNameLast:
+              type: string
+            abgabeUserKuerzel:
+              type: string
+      x-tags:
+        - Medikamentenabgabe
+    Medikamentenabgabe-Request:
+      type: object
+      properties:
+        headId:
+          type: string
+        abgabeTimeslot:
+          type: string
+        abgabeStatus:
+          type: integer
+        abgabeDatum:
+          type: string
+      x-tags:
+        - Medikamentenabgabe
+    File-Response:
+      type: object
+      properties:
+        contentType:
+          type: string
+        path:
+          type: string
+        status:
+          type: string
+        message:
+          type: string
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/Message'
+        details:
+          type: object
+      x-tags:
+        - Response
+    Klienteninfos:
+      title: Klienteninfos
+      type: object
+      description: 'Klienteninformationen Teil Persoenliche Daten, Adresse, Signalelemente'
+      properties:
+        status:
+          type: object
+          properties:
+            status:
+              type: string
+            eintritt:
+              type: string
+            austritt:
+              type: string
+        daten:
+          type: object
+          properties:
+            nummer:
+              type: string
+            vorname:
+              type: string
+            nachname:
+              type: string
+            kuerzel:
+              type: string
+            gebdatum:
+              type: string
+            zivilstand:
+              type: string
+            sprache:
+              type: string
+            nationalitt:
+              type: string
+            aufenthaltsbewilligung:
+              type: string
+            konfession:
+              type: string
+        ahv_ch:
+          type: string
+        ahv_fl:
+          type: string
+        einwohnerKontrolle:
+          type: object
+          properties:
+            schriftenOrt:
+              type: string
+            schriftenKanton:
+              type: string
+            heimatort:
+              type: string
+            geburtsort:
+              type: string
+        bank:
+          type: object
+          properties:
+            postkonto:
+              type: string
+            name:
+              type: string
+            ort:
+              type: string
+            kontoNr:
+              type: string
+            kontoIBAN:
+              type: string
+            inhaber:
+              type: string
+        verfuegung:
+          type: object
+          properties:
+            datum:
+              type: string
+            ablage:
+              type: string
+            nutungsrechte:
+              type: string
+            vorhanden:
+              type: string
+        adresse:
+          type: object
+          properties:
+            coFirma:
+              type: string
+            strasse:
+              type: string
+            strasseZusatz:
+              type: string
+            postfach:
+              type: string
+            plz:
+              type: string
+            ort:
+              type: string
+            kanton:
+              type: string
+            land:
+              type: string
+        kontakt:
+          type: object
+          properties:
+            tel1:
+              type: string
+            tel2:
+              type: string
+            mobile:
+              type: string
+            email:
+              type: string
+        signalelemente:
+          type: object
+          properties:
+            geschlecht:
+              type: string
+            groesse:
+              type: string
+            gewicht:
+              type: string
+            augenfarbe:
+              type: string
+            haarfarbe:
+              type: string
+            haarlaenge:
+              type: string
+            statur:
+              type: string
+            besonderes:
+              type: string
+            bevorzugOrt:
+              type: string
+            foto:
+              type: object
+              properties:
+                headId:
+                  type: string
+                url:
+                  type: string
+      x-tags:
+        - Klient
+      x-examples: {}
+    Klientennotfall:
+      title: Klientennotfall
+      type: object
+      description: Klienteninformationen Teil Notfallinformationen
+      properties:
+        diagnose:
+          type: string
+        suchtmittel:
+          type: string
+        allgemein:
+          type: string
+        massnahmen:
+          type: string
+      x-tags:
+        - Klient
+    Klientenversicherung:
+      title: Klientenversicherung
+      type: object
+      description: 'Klienteninformationen Teil Krankenkasse, Versicherung'
+      properties:
+        kvg:
+          type: object
+          properties:
+            name:
+              type: string
+            sektion:
+              type: string
+            nummer:
+              type: string
+            bagNummer:
+              type: string
+            kartenNummer:
+              type: string
+            tel:
+              type: string
+            email:
+              type: string
+            taggeld:
+              type: boolean
+            bemerkungen:
+              type: string
+        vvg:
+          type: object
+          properties:
+            name:
+              type: string
+            sektion:
+              type: string
+            nummer:
+              type: string
+            tel:
+              type: string
+            email:
+              type: string
+        unfall:
+          type: object
+          properties:
+            details:
+              type: string
+            email:
+              type: string
+        haftpflicht:
+          type: object
+          properties:
+            details:
+              type: string
+            email:
+              type: string
+        iv:
+          type: object
+          properties:
+            details:
+              type: string
+            email:
+              type: string
+        ergaenzungsleistungen:
+          type: object
+          properties:
+            erhaltet:
+              type: boolean
+            bemerkungen:
+              type: string
+      x-tags:
+        - Klient
+    Klientensituation:
+      title: Klientensituation
+      type: object
+      description: Klienteninformationen Teil Anamnese
+      properties:
+        rueckblick:
+          type: string
+        klinikaufenthalte:
+          type: string
+        wohnsituation:
+          type: string
+        tagesablauf:
+          type: string
+        soziales:
+          type: string
+        schwierigkeiten:
+          type: string
+        besonderes:
+          type: string
+      x-tags:
+        - Klient
+    Klientenumfeld:
+      title: Klientenumfeld
+      type: object
+      description: Klienteninformationen Teil Umfeldadressen
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              headId:
+                type: string
+              kategorieId:
+                type: string
+              kategorie:
+                type: string
+              istNofallkontakt:
+                type: boolean
+              istProfilkontakt:
+                type: boolean
+              adresse:
+                $ref: '#/components/schemas/Adresse'
+      x-tags:
+        - Klient
+    Adresse:
+      title: Adresse
+      type: object
+      description: Adresse und Kontaktdaten einer Umfeldsperson
+      x-tags:
+        - Klient
+      properties:
+        headId:
+          type: string
+        nachname:
+          type: string
+        vorname:
+          type: string
+        tel1:
+          type: string
+        tel2:
+          type: string
+        mobil:
+          type: string
+        email:
+          type: string
+        erreichbarkeit:
+          type: string
+        strasse:
+          type: string
+        plz:
+          type: string
+        ort:
+          type: string
+        firmabehoerde:
+          type: string
+    Verordnungen:
+      title: Verordnungen
+      type: object
+      description: Medizinische oder Pflege Verordnung
+      x-tags:
+        - Verordnungen
+      properties:
+        klientId:
+          type: string
+        headId:
+          type: string
+        verordnung:
+          type: string
+        terminart:
+          type: string
+        startdatum:
+          type: string
+        enddatum:
+          type: string
+        zeitvon:
+          type: string
+        zeitbis:
+          type: string
+        wann:
+          type: string
+        istErledigbar:
+          type: boolean
+        verordner:
+          type: string
+        istMedVerordnung:
+          type: boolean
+        istPflegeVerordnung:
+          type: boolean
+    Wunddokumentation:
+      title: Wunddokumentation
+      type: object
+      properties:
+        headId:
+          type: string
+        datumzeit:
+          type: string
+        bemerkung:
+          type: string
+        foto:
+          type: object
+          properties:
+            headId:
+              type: string
+            url:
+              type: string
+      x-tags:
+        - Verordnungen
+    Vitalzeichen:
+      title: Vitalzeichen
+      type: object
+      x-tags:
+        - Vitalzeichen
+      properties:
+        klientId:
+          type: string
+        headId:
+          type: string
+        gewicht:
+          type: string
+        groesse:
+          type: string
+        temparatur:
+          type: string
+        blutdruck:
+          type: string
+        puls:
+          type: string
+        blutzucker:
+          type: string
+        fluessigkeitszufuhr:
+          type: string
+        kathetervol:
+          type: string
+        alkoholtest:
+          type: string
+        urinprobe:
+          type: string
+        diverses:
+          type: string
+        bemerkungen:
+          type: string
+        zeit:
+          type: string
+        datum:
+          type: string
+    Stuhlgang:
+      title: Stuhlgang
+      type: object
+      x-tags:
+        - Stuhlgang
+      properties:
+        klientId:
+          type: string
+        headId:
+          type: string
+        datum:
+          type: string
+        zeit:
+          type: string
+        tageszeit:
+          type: string
+        intensitaet:
+          type: string
+        art:
+          type: string
+        farbcode:
+          type: string
+        farbcodehex:
+          type: string
+        dauer:
+          type: string
+    Menstruation:
+      title: Menstruation
+      type: object
+      properties:
+        klientId:
+          type: string
+        headId:
+          type: string
+        datumstart:
+          type: string
+        datumende:
+          type: string
+        art:
+          type: string
+        arthex:
+          type: string
+        beschwerden:
+          type: array
+          items:
+            type: string
+      x-tags:
+        - Menstruation
+    Epilepsie:
+      title: Epilepsie
+      type: object
+      properties:
+        klientId:
+          type: string
+        headId:
+          type: string
+        datumzeit:
+          type: string
+        beschreibung:
+          type: string
+        typ:
+          type: string
+      x-tags:
+        - Epilepsie
+    Hilfsmittel:
+      title: Hilfsmittel
+      type: object
+      properties:
+        klientId:
+          type: string
+        headId:
+          type: string
+        name:
+          type: string
+        bild:
+          type: object
+          properties:
+            headId:
+              type: string
+            url:
+              type: string
+        abgabe:
+          type: string
+        bemerkung:
+          type: string
+      x-tags:
+        - Hilfsmittel
+    Massnahme:
+      title: Massnahme
+      type: object
+      properties:
+        headId:
+          type: string
+        klientId:
+          type: string
+        typ:
+          type: string
+          description: 'Moegliche typen: betreuer, arbeitsplatz, zimmer, gruppe, AnachB'
+        massnahme:
+          type: string
+        istErledigt:
+          type: boolean
+        datum:
+          type: string
+        bemerkung:
+          type: string
+        visum:
+          type: string
+      x-tags:
+        - Klient
+    Gesundheitstermin:
+      title: Gesundheitstermin
+      type: object
+      properties:
+        klientId:
+          type: string
+        headId:
+          type: string
+        terminart:
+          type: string
+        datumstart:
+          type: string
+        datumende:
+          type: string
+        zeitstart:
+          type: string
+        zeitende:
+          type: string
+        art:
+          type: string
+        bemerkung:
+          type: string
+      x-tags:
+        - Termin
+    Impfung:
+      title: Impfung
+      type: object
+      properties:
+        klientId:
+          type: string
+        headId:
+          type: string
+        datum:
+          type: string
+        zeitvon:
+          type: string
+        zeitbis:
+          type: string
+        impfung:
+          type: string
+        dosis:
+          type: string
+        impfer:
+          type: string
+        bemerkung:
+          type: string
+      x-tags:
+        - Termin
+    Pflegeanleitung:
+      title: Pflegeanleitung
+      type: object
+      properties:
+        klientId:
+          type: string
+        headId:
+          type: string
+        name:
+          type: string
+        einstellung:
+          type: string
+        text:
+          type: string
+      x-tags:
+        - Pflege
+    Schmerzen:
+      title: Schmerzen
+      type: object
+      properties:
+        headId:
+          type: string
+        klientId:
+          type: string
+        datum:
+          type: string
+        punkte:
+          type: string
+        login:
+          type: string
+      x-tags:
+        - Schmerzen
+    FB-Massnahme:
+      title: FB-Massnahme
+      type: object
+      properties:
+        headId:
+          type: string
+        klientId:
+          type: string
+        datumstart:
+          type: string
+        datumende:
+          type: string
+        massnahme:
+          type: string
+        beschriebung:
+          type: string
+      x-tags:
+        - FB
+    BereichCollection:
+      title: AccessibleBereiche
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Bereich'
+    KlientCollection:
+      title: ClientCollection
+      type: object
+      x-tags:
+        - Klient
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Klientabfrage'
+    JournalCollection:
+      title: JournalCollection
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Journalabfrage'
+      x-tags:
+        - Journal
+    JournalkategorieCollection:
+      title: JournalkategorieCollection
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Journalkategorie'
+      x-tags:
+        - Journal
+    File-Collection:
+      title: File-Collection
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/File-Collection-File'
+      x-tags:
+        - File-Collection
+    KalendereintragCollection:
+      title: KalendereintragCollection
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Kalendereintrag'
+      x-tags:
+        - Kalender
+    MedikamentCollection:
+      title: MedikamentCollection
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Medikament'
+      x-tags:
+        - Medikament
+    MedikamnetenabgabeCollection:
+      title: MedikamnetenabgabeCollection
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Medikamentenabgabe'
+      x-tags:
+        - Medikamentenabgabe
+    VerordnungsCollection:
+      title: VerordnungsCollection
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Verordnungen'
+      x-tags:
+        - Verordnungen
+    StuhlgangCollection:
+      title: StuhlgangCollection
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Stuhlgang'
+      x-tags:
+        - Stuhlgang
+    MenstruationCollection:
+      title: MenstruationCollection
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Menstruation'
+      x-tags:
+        - Menstruation
+    WunddokumentationCollection:
+      title: WunddokumentationCollection
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Wunddokumentation'
+      x-tags:
+        - Verordnungen
+    EpilepsieCollection:
+      title: EpilepsieCollection
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Epilepsie'
+      x-tags:
+        - Epilepsie
+    FBCollection:
+      title: FBCollection
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/FB-Massnahme'
+      x-tags:
+        - FB
+    HilfsmittelCollection:
+      title: HilfsmittelCollection
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Hilfsmittel'
+      x-tags:
+        - Hilfsmittel
+    GesundheitsterminCollection:
+      title: GesundheitsterminCollection
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Gesundheitstermin'
+      x-tags:
+        - Termin
+    ImpfungCollection:
+      title: ImpfungCollection
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Impfung'
+      x-tags:
+        - Termin
+    MassnahmeCollection:
+      title: MassnahmeCollection
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Massnahme'
+      x-tags:
+        - Klient
+    VitalzeichenCollection:
+      title: VitalzeichenCollection
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Vitalzeichen'
+      x-tags:
+        - Vitalzeichen
+    Farbe:
+      title: Farbe
+      type: object
+      properties:
+        headId:
+          type: string
+        name:
+          type: string
+        hex:
+          type: string
+    FarbCollection:
+      title: FarbCollection
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Farbe'
+      x-tags:
+        - File-Collection
+    StuhlgangArt:
+      title: StuhlgangArt
+      type: object
+      properties:
+        headId:
+          type: string
+        name:
+          type: string
+        kuerzel:
+          type: string
+      x-tags:
+        - Stuhlgang
+    StuhlgangArtCollection:
+      title: StuhlgangArtCollection
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/StuhlgangArt'
+      x-tags:
+        - Stuhlgang
+    PflegeanleitungCollection:
+      title: PflegeanleitungCollection
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Pflegeanleitung'
+      x-tags:
+        - Pflege
+    SchmerzenCollection:
+      title: SchmerzenCollection
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Schmerzen'
+      x-tags:
+        - Schmerzen
+    MedConformation:
+      title: MedConformation
+      type: object
+      properties:
+        mode:
+          type: string
+      x-tags:
+        - Medikamentenabgabe
+    Befindlichkeit:
+      title: Befindlichkeit
+      type: object
+      properties:
+        headId:
+          type: string
+        name:
+          type: string
+    BefindlichkeitCollection:
+      title: BefindlichkeitCollection
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Befindlichkeit'
+    ReservemedikamnetenabgabeCollection:
+      title: ReservemedikamnetenabgabeCollection
+      type: object
+      x-tags:
+        - Medikamentenabgabe
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Reservemedikamnetenabgabe'
+    Reservemedikamnetenabgabe:
+      title: Reservemedikamnetenabgabe
+      type: object
+      x-tags:
+        - Medikamentenabgabe
+      properties:
+        headId:
+          type: string
+        abgabeDatum:
+          type: string
+        abgabeZeit:
+          type: string
+        indikation:
+          type: string
+        wirkung:
+          type: string
+        menge:
+          type: string
+        reservemedId:
+          type: string
+    ReservemedikationCollection:
+      title: ReservemedikationCollection
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Reservemedikament'
+      x-tags:
+        - Medikamentenabgabe
+    Reservemedikament:
+      title: Reservemedikament
+      type: object
+      properties:
+        model:
+          type: object
+          properties:
+            headId:
+              type: string
+            bezeichung:
+              type: string
+            medikament:
+              type: object
+              properties:
+                headId:
+                  type: string
+                label:
+                  type: string
+            name:
+              type: string
+            datum:
+              type: string
+            datumStop:
+              type: string
+            arzt:
+              type: string
+            indikation:
+              type: string
+            klient:
+              type: object
+              properties:
+                headId:
+                  type: string
+                label:
+                  type: string
+                kuerzel:
+                  type: string
+            maximaleTagesDosis:
+              type: string
+      x-tags:
+        - Medikamentenabgabe
+  securitySchemes: {}
