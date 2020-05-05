@@ -2581,63 +2581,74 @@ paths:
               examples:
                 example-1:
                   value:
-                    status:
-                      status: Aktiv
-                      eintritt: '1990-02-01'
-                      austritt: null
-                    daten:
-                      nummer: '123456'
-                      vorname: Test
-                      nachname: Person
-                      kuerzel: TP
-                      gebdatum: '1956-12-12'
-                      zivilstand: ledig
-                      sprache: Deutsch
-                      nationalitt: Schweiz
-                      aufenthaltsbewilligung: null
-                      konfession: Evangelisch
-                    ahv_ch: 756.1236.123
-                    ahv_fl: null
-                    einwohnerKontrolle:
-                      schriftenOrt: Chur
-                      schriftenKanton: GR
-                      heimatort: Zürich
-                      geburtsort: St. Gallen
-                    bank:
-                      postkonto: 84.12323.1
-                      name: Post Finance
-                      ort: Bern
-                      kontoNr: null
-                      kontoIBAN: CH850 0000 0123 4567 8910
-                      inhaber: Test Person
-                    verfuegung: null
-                    adresse:
-                      coFirma: null
-                      strasse: Weg 1
-                      strasseZusatz: null
-                      postfach: null
-                      plz: '8000'
-                      ort: Bern
-                      kanton: BE
-                      land: CH
-                    kontakt:
-                      tel1: 081 333 11 11
-                      tel2: null
-                      mobile: 079 900 12 34
-                      email: testpeson@gmail.com
-                    signalelemente:
-                      geschlecht: Männlich
-                      groesse: 174 cm
-                      gewicht: 74 kg
-                      augenfarbe: null
-                      haarfarbe: Grau-Braun
-                      haarlaenge: null
-                      statur: Fest
-                      besonderes: null
-                      bevorzugOrt: Hängematte
-                      foto:
-                        headId: string
-                        url: string
+                    model:
+                      status:
+                        status:
+                          key: A
+                          label: Aktiv
+                        eintritt: '1990-02-01'
+                        austritt: null
+                      daten:
+                        nummer: '123456'
+                        vorname: Test
+                        nachname: Person
+                        kuerzel: TP
+                        gebdatum: '1956-12-12'
+                        zivilstand:
+                          headId: '1'
+                          label: ledig
+                        sprache: Deutsch
+                        nationalitaet: Schweiz
+                        aufenthaltsbewilligung: null
+                        konfession:
+                          headId: '1'
+                          label: Evangelisch
+                      ahv_ch: 756.1236.123
+                      ahv_fl: null
+                      einwohnerKontrolle:
+                        schriftenOrt: Chur
+                        schriftenKanton:
+                          key: GR
+                          label: Graubünden
+                        heimatort: Zürich
+                        geburtsort: St. Gallen
+                      bank:
+                        postkonto: 84.12323.1
+                        name: Post Finance
+                        ort: Bern
+                        kontoNr: null
+                        kontoIBAN: CH850 0000 0123 4567 8910
+                        inhaber: Test Person
+                      verfuegung: null
+                      adresse:
+                        coFirma: null
+                        strasse: Weg 1
+                        strasseZusatz: null
+                        postfach: null
+                        plz: '8000'
+                        ort: Bern
+                        kanton: BE
+                        land: CH
+                      kontakt:
+                        tel1: 081 333 11 11
+                        tel2: null
+                        mobile: 079 900 12 34
+                        email: testpeson@gmail.com
+                      signalelemente:
+                        geschlecht:
+                          key: M
+                          label: Männlich
+                        groesse: 174 cm
+                        gewicht: 74 kg
+                        augenfarbe: null
+                        haarfarbe: Grau-Braun
+                        haarlaenge: null
+                        statur: Fest
+                        besonderes: null
+                        bevorzugOrt: Hängematte
+                        foto:
+                          headId: string
+                          url: string
       operationId: get-v1-bereich-bereichId-klient-klientId-infos
       description: ''
   '/v1/bereich/{bereichId}/klient/{klientId}/notfall':
@@ -2666,10 +2677,11 @@ paths:
               examples:
                 example-1:
                   value:
-                    diagnose: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas aliquam mollis leo vel ultricies. Duis id metus vel ligula feugiat rhoncus. Nam mollis nisi vel gravida viverra. Nulla porta enim in ex ullamcorper, eu semper lorem rhoncus. Curabitur at velit facilisis, congue odio in, luctus elit. Vivamus pretium risus et tortor dapibus molestie. Ut ultrices.'
-                    suchtmittel: 'Quisque tristique felis tempus lacinia ultricies. Sed eget euismod lectus. Mauris dui mauris, tristique ut rutrum vitae, ornare et enim.'
-                    allgemein: 'Fusce in viverra massa, eget vehicula diam. Nullam elementum urna ante, ac aliquet tellus egestas ac. Nulla nec mattis eros.'
-                    massnahmen: 'Nam mollis lectus orci, nec sagittis ipsum rutrum quis. Donec elementum volutpat dignissim. Duis mauris tortor, luctus nec ullamcorper ac, ultrices vel ipsum. Nam ex metus, maximus eget iaculis et.'
+                    model:
+                      diagnose: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas aliquam mollis leo vel ultricies. Duis id metus vel ligula feugiat rhoncus. Nam mollis nisi vel gravida viverra. Nulla porta enim in ex ullamcorper, eu semper lorem rhoncus. Curabitur at velit facilisis, congue odio in, luctus elit. Vivamus pretium risus et tortor dapibus molestie. Ut ultrices.'
+                      suchtmittel: 'Quisque tristique felis tempus lacinia ultricies. Sed eget euismod lectus. Mauris dui mauris, tristique ut rutrum vitae, ornare et enim.'
+                      allgemein: 'Fusce in viverra massa, eget vehicula diam. Nullam elementum urna ante, ac aliquet tellus egestas ac. Nulla nec mattis eros.'
+                      massnahmen: 'Nam mollis lectus orci, nec sagittis ipsum rutrum quis. Donec elementum volutpat dignissim. Duis mauris tortor, luctus nec ullamcorper ac, ultrices vel ipsum. Nam ex metus, maximus eget iaculis et.'
       operationId: get-v1-bereich-bereichId-klient-klientId-notfall
   '/v1/bereich/{bereichId}/klient/{klientId}/versicherung':
     parameters:
@@ -2697,30 +2709,31 @@ paths:
               examples:
                 example-1:
                   value:
-                    kvg:
-                      name: Sanitas
-                      sektion: bern
-                      nummer: '1234'
-                      bagNummer: '12345'
-                      kartenNummer: '1234'
-                      tel: 081 353 41 00
-                      email: sanitas@versicherung.ch
-                      taggeld: true
-                      bemerkungen: null
-                    vvg:
-                      name: Winterthur
-                      sektion: Zürich
-                      nummer: '123456'
-                      tel: 081 500 50 51
-                      email: winterthur@versicherung.ch
-                    unfall: null
-                    haftpflicht: null
-                    iv:
-                      details: Ja
-                      email: IV@admin.ch
-                    ergaenzungsleistungen:
-                      erhaltet: true
-                      bemerkungen: null
+                    model:
+                      kvg:
+                        name: Sanitas
+                        sektion: bern
+                        nummer: '1234'
+                        bagNummer: '12345'
+                        kartenNummer: '1234'
+                        tel: 081 353 41 00
+                        email: sanitas@versicherung.ch
+                        taggeld: true
+                        bemerkungen: null
+                      vvg:
+                        name: Winterthur
+                        sektion: Zürich
+                        nummer: '123456'
+                        tel: 081 500 50 51
+                        email: winterthur@versicherung.ch
+                      unfall: null
+                      haftpflicht: null
+                      iv:
+                        details: Ja
+                        email: IV@admin.ch
+                      ergaenzungsleistungen:
+                        erhaltet: true
+                        bemerkungen: null
       operationId: get-v1-bereich-bereichId-klient-klientId-versicherung
   '/v1/bereich/{bereichId}/klient/{klientId}/situation':
     parameters:
@@ -2748,13 +2761,14 @@ paths:
               examples:
                 example-1:
                   value:
-                    rueckblick: 'Nam mollis lectus orci, nec sagittis ipsum rutrum quis. Donec elementum volutpat dignissim. Duis mauris tortor, luctus nec ullamcorper ac, ultrices vel ipsum. Nam ex metus, maximus eget iaculis et.'
-                    klinikaufenthalte: 'Pellentesque efficitur mauris ut arcu ultricies congue. Cras ut fermentum urna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ac metus ultrices, luctus nibh in, gravida metus. Aliquam quis.'
-                    wohnsituation: 'In facilisis auctor mi, ac elementum sapien porttitor quis. Vestibulum.'
-                    tagesablauf: 'Suspendisse arcu mauris, porta at odio ut, cursus semper neque.'
-                    soziales: ''
-                    schwierigkeiten: 'Quisque accumsan id velit nec accumsan. Aenean nibh libero, vehicula.'
-                    besonderes: 'Nulla molestie, urna nec placerat fermentum, magna ante elementum elit, a sagittis justo ex vel.'
+                    model:
+                      rueckblick: 'Nam mollis lectus orci, nec sagittis ipsum rutrum quis. Donec elementum volutpat dignissim. Duis mauris tortor, luctus nec ullamcorper ac, ultrices vel ipsum. Nam ex metus, maximus eget iaculis et.'
+                      klinikaufenthalte: 'Pellentesque efficitur mauris ut arcu ultricies congue. Cras ut fermentum urna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ac metus ultrices, luctus nibh in, gravida metus. Aliquam quis.'
+                      wohnsituation: 'In facilisis auctor mi, ac elementum sapien porttitor quis. Vestibulum.'
+                      tagesablauf: 'Suspendisse arcu mauris, porta at odio ut, cursus semper neque.'
+                      soziales: ''
+                      schwierigkeiten: 'Quisque accumsan id velit nec accumsan. Aenean nibh libero, vehicula.'
+                      besonderes: 'Nulla molestie, urna nec placerat fermentum, magna ante elementum elit, a sagittis justo ex vel.'
       operationId: get-v1-bereich-bereichId-klient-klientId-situation
   '/v1/bereich/{bereichId}/klient/{klientId}/umfeld':
     parameters:
@@ -4520,6 +4534,10 @@ components:
       description: 'Klienteninformationen Teil Persoenliche Daten, Adresse, Signalelemente'
       properties:
         model:
+          x-tags:
+            - Klient
+          x-examples: {}
+          type: object
           properties:
             status:
               type: object
@@ -4535,10 +4553,8 @@ components:
                       type: string
                 eintritt:
                   type: string
-                  format: date
                 austritt:
                   type: string
-                  format: date
             daten:
               type: object
               x-flexClass: RedlineKlientDatenRMO
@@ -4553,7 +4569,6 @@ components:
                   type: string
                 gebdatum:
                   type: string
-                  format: date
                 zivilstand:
                   type: object
                   x-flexType: ref
@@ -4620,7 +4635,6 @@ components:
               properties:
                 datum:
                   type: string
-                  format: date
                 ablage:
                   type: string
                 nutungsrechte:
@@ -4695,9 +4709,6 @@ components:
                       type: string
                     url:
                       type: string
-          x-tags:
-            - Klient
-          x-examples: {}
     Klientennotfall:
       title: Klientennotfall
       type: object
@@ -4705,6 +4716,7 @@ components:
       description: Klienteninformationen Teil Notfallinformationen
       properties:
         model:
+          type: object
           properties:
             diagnose:
               type: string
@@ -4723,6 +4735,7 @@ components:
       description: 'Klienteninformationen Teil Krankenkasse, Versicherung'
       properties:
         model:
+          type: object
           properties:
             kvg:
               type: object
@@ -4801,6 +4814,7 @@ components:
       description: Klienteninformationen Teil Anamnese
       properties:
         model:
+          type: object
           properties:
             rueckblick:
               type: string
