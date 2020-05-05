@@ -3644,7 +3644,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ReservemedikamnetenabgabeCollection'
+                $ref: '#/components/schemas/ReservemedikamentenabgabeCollection'
               examples:
                 example-1:
                   value:
@@ -3700,7 +3700,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Reservemedikamnetenabgabe'
+              $ref: '#/components/schemas/Reservemedikamentenabgabe'
       tags:
         - Medikamentenabgabe
       description: ''
@@ -5443,7 +5443,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Befindlichkeit'
-    ReservemedikamnetenabgabeCollection:
+    ReservemedikamentenabgabeCollection:
       title: ReservemedikamnetenabgabeCollection
       type: object
       x-tags:
@@ -5452,8 +5452,8 @@ components:
         data:
           type: array
           items:
-            $ref: '#/components/schemas/Reservemedikamnetenabgabe'
-    Reservemedikamnetenabgabe:
+            $ref: '#/components/schemas/Reservemedikamentenabgabe'
+    Reservemedikamentenabgabe:
       title: Reservemedikamnetenabgabe
       type: object
       x-tags:
