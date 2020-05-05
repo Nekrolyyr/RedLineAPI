@@ -2905,13 +2905,15 @@ paths:
                   value:
                     data:
                       - headId: '1'
-                        datumzeit: '2020-05-02 10:23'
+                        datum: '2020-05-02'
+                        zeit: '10:23'
                         bemerkung: Wollte nicht
                         foto:
                           headId: string
                           url: string
                       - headId: '2'
-                        datumzeit: '2020-05-03 14:23'
+                        datum: '2020-05-03'
+                        zeit: '14:23'
                         bemerkung: Ging gut
                         foto:
                           headId: string
@@ -3021,6 +3023,52 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/VitalzeichenCollection'
+              examples:
+                example-1:
+                  value:
+                    data:
+                      - klientId: '1'
+                        headId: '1'
+                        gewicht: 74kg
+                        groesse: 178cm
+                        temparatur: ''
+                        blutdruck: 80/120 mm Hg
+                        puls: 65 S/min
+                        blutzucker: ''
+                        fluessigkeitszufuhr: ''
+                        kathetervol: ''
+                        alkoholtest: ''
+                        urinprobe: ''
+                        diverses: ''
+                        bemerkungen: ''
+                      - klientId: '1'
+                        headId: '2'
+                        gewicht: ''
+                        groesse: ''
+                        temparatur: '37.5'
+                        blutdruck: ''
+                        puls: 65 S/min
+                        blutzucker: ''
+                        fluessigkeitszufuhr: 1.5l
+                        kathetervol: ''
+                        alkoholtest: ''
+                        urinprobe: ''
+                        diverses: ''
+                        bemerkungen: ''
+                      - klientId: '1'
+                        headId: '3'
+                        gewicht: ''
+                        groesse: ''
+                        temparatur: ''
+                        blutdruck: ''
+                        puls: ''
+                        blutzucker: ''
+                        fluessigkeitszufuhr: ''
+                        kathetervol: ''
+                        alkoholtest: 1.2 0/00
+                        urinprobe: Positiv CBD
+                        diverses: ''
+                        bemerkungen: War im Ausgang
       operationId: get-v1-vitalzeichen
       parameters:
         - schema:
@@ -3071,6 +3119,30 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/StuhlgangCollection'
+              examples:
+                example-1:
+                  value:
+                    data:
+                      - klientId: '1'
+                        headId: '2'
+                        datum: '2020-02-06'
+                        zeit: '08:16:00'
+                        tageszeit: morgens
+                        intensitaet: Normal
+                        art: Normal
+                        farbcode: Normal
+                        farbcodehex: 3D1717
+                        dauer: '05:00'
+                      - klientId: '1'
+                        headId: '2'
+                        datum: '2020-02-09'
+                        zeit: '19:16:00'
+                        tageszeit: Abends
+                        intensitaet: Stark
+                        art: Durchfall
+                        farbcode: Blutig
+                        farbcodehex: '701818'
+                        dauer: '15:00'
       operationId: get-v1-stuhlgang
       parameters:
         - schema:
@@ -3122,6 +3194,19 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/StuhlgangArtCollection'
+              examples:
+                example-1:
+                  value:
+                    data:
+                      - headId: '1'
+                        name: Normal
+                        kuerzel: 'N'
+                      - headId: '2'
+                        name: Durchfall
+                        kuerzel: D
+                      - headId: '3'
+                        name: Verstopfung
+                        kuerzel: V
       operationId: get-v1-def-stuhlgang-art
   /v1/def/stuhlgang/farbcode:
     get:
@@ -3135,6 +3220,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/FarbCollection'
+              examples:
+                example-1:
+                  value:
+                    data:
+                      - headId: '1'
+                        name: Normal
+                        hex: 3D1717
+                      - headId: '2'
+                        name: Blutig
+                        hex: '701818'
       operationId: get-v1-def-stuhlgang-farbcode
   /v1/menstruation:
     get:
@@ -3148,6 +3243,27 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/MenstruationCollection'
+              examples:
+                example-1:
+                  value:
+                    data:
+                      - klientId: '1'
+                        headId: '1'
+                        datumstart: '2020-06-02'
+                        datumende: '2020-06-04'
+                        art: Schwach
+                        arthex: e08080
+                        beschwerden:
+                          - Unwohlsein
+                          - Will Süssigkeiten
+                      - klientId: '1'
+                        headId: '2'
+                        datumstart: '2020-06-04'
+                        datumende: '2020-06-06'
+                        art: Schmierblutung
+                        arthex: a02020
+                        beschwerden:
+                          - Unwohlsein
       operationId: get-v1-menstruation
       parameters:
         - schema:
@@ -3198,6 +3314,19 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/FarbCollection'
+              examples:
+                example-1:
+                  value:
+                    data:
+                      - headId: '1'
+                        name: Schmierblutung
+                        hex: a02020
+                      - headId: '2'
+                        name: Stark
+                        hex: f02020
+                      - headId: '3'
+                        name: Schwach
+                        hex: e08080
       operationId: get-v1-def-menstruation-art
   /v1/def/menstruation/befindlichkeit:
     get:
@@ -3211,6 +3340,18 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/BefindlichkeitCollection'
+              examples:
+                example-1:
+                  value:
+                    data:
+                      - headId: '1'
+                        name: Krämpfe
+                      - headId: '2'
+                        name: Blähungen
+                      - headId: '3'
+                        name: Unhohlsein
+                      - headId: '4'
+                        name: Will Süssigkeiten
       operationId: get-v1-def-menstruation-befindlichkeit
   /v1/epilepsie:
     get:
@@ -3224,6 +3365,34 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/EpilepsieCollection'
+              examples:
+                example-1:
+                  value:
+                    data:
+                      - klientId: '1'
+                        headId: '1'
+                        datum: '2020-02-16'
+                        zeit: '15:08:00'
+                        beschreibung: ''
+                        typ: Schwacher Anfall
+                      - klientId: '1'
+                        headId: '2'
+                        datum: '2020-02-17'
+                        zeit: '15:08:00'
+                        beschreibung: Mussten Hilfe holen
+                        typ: Komplexer fokaler Anfall
+                      - klientId: '1'
+                        headId: '3'
+                        datum: '2020-02-18'
+                        zeit: '15:08:00'
+                        beschreibung: ''
+                        typ: Generalisierter tonisch-klonischer Anfall
+                      - klientId: '1'
+                        headId: '4'
+                        datum: '2020-02-19'
+                        zeit: '15:08:00'
+                        beschreibung: Weggetreten
+                        typ: Absence
       operationId: get-v1-epilepsie
       parameters:
         - schema:
@@ -3289,6 +3458,50 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/MassnahmeCollection'
+              examples:
+                example-1:
+                  value:
+                    data:
+                      - headId: '1'
+                        klientId: '1'
+                        typ: betreuer
+                        massnahme: Lorem ipsum dolor sit amet
+                        istErledigt: true
+                        datum: '2020-05-16'
+                        bemerkung: ''
+                        visum: HR
+                      - headId: '1'
+                        klientId: '1'
+                        typ: arbeitsplatz
+                        massnahme: Fusce arcu
+                        istErledigt: true
+                        datum: '2020-04-16'
+                        bemerkung: ''
+                        visum: HR
+                      - headId: '1'
+                        klientId: '1'
+                        typ: zimmer
+                        massnahme: In eu nunc vitae nisl ornare maximus nec non lorem. Etiam vel consequat sapien. Maecenas.
+                        istErledigt: true
+                        datum: '2020-03-16'
+                        bemerkung: ''
+                        visum: VM
+                      - headId: '1'
+                        klientId: '1'
+                        typ: gruppe
+                        massnahme: Etiam sed libero id dui cursus efficitur sit amet quis.
+                        istErledigt: true
+                        datum: '2020-05-14'
+                        bemerkung: 'Kann gut umgesetzt werden!'
+                        visum: HR
+                      - headId: '1'
+                        klientId: '1'
+                        typ: AnachB
+                        massnahme: 'Duis risus nibh, commodo eget.'
+                        istErledigt: true
+                        datum: '2020-05-22'
+                        bemerkung: 'Nulla varius purus malesuada, consectetur nisl ac, lobortis erat. Donec nisi ligula, maximus nec lobortis ultrices, suscipit quis nisl. Vestibulum dignissim dui ac est fringilla mattis. Duis risus nibh, commodo eget diam non, lacinia maximus lorem. Nunc eu lorem in turpis blandit sodales vitae id lorem. Donec viverra felis ut.'
+                        visum: bbin
       operationId: get-v1-sicherheit
       parameters:
         - schema:
@@ -3307,6 +3520,28 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GesundheitsterminCollection'
+              examples:
+                example-1:
+                  value:
+                    data:
+                      - klientId: '1'
+                        headId: '1'
+                        terminart: '10'
+                        datumstart: '2019-11-02'
+                        datumende: '2021-12-24'
+                        zeitstart: '14:00:24'
+                        zeitende: '15:15:00'
+                        art: Untersuchung
+                        bemerkung: Warte 15min
+                      - klientId: '2'
+                        headId: '2'
+                        terminart: '40'
+                        datumstart: '2018-11-02'
+                        datumende: '2018-12-02'
+                        zeitstart: '15:15:24'
+                        zeitende: '16:15:00'
+                        art: Untersuchung
+                        bemerkung: Warte 30min
       operationId: get-v1-gesundheitstermine-termine
       parameters:
         - schema:
@@ -3325,6 +3560,19 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ImpfungCollection'
+              examples:
+                example-1:
+                  value:
+                    data:
+                      - klientId: '1'
+                        headId: '2'
+                        datum: '2020-12-02'
+                        zeitvon: '08:05:00'
+                        zeitbis: '08:10:00'
+                        impfung: Tetanus
+                        dosis: 5ml
+                        impfer: Dr. House
+                        bemerkung: ''
       operationId: get-v1-gesundheitstermine-impfungen
       parameters:
         - schema:
@@ -3534,6 +3782,24 @@ paths:
             type: string
           in: query
           name: klient
+  /v1/auth:
+    get:
+      summary: Your GET endpoint
+      tags:
+        - Benutzer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+              examples:
+                example-1:
+                  value:
+                    type: RESTful
+      operationId: get-v1-auth
+      description: "Autenzifizierung für diese Institution erhalten. Ohne login zugänglich. (1)'RESTful'-Default (2)'Okta Verify' "
 components:
   schemas:
     Login-Request:
@@ -4637,10 +4903,12 @@ components:
     Wunddokumentation:
       title: Wunddokumentation
       type: object
+      x-tags:
+        - Verordnungen
       properties:
         headId:
           type: string
-        datumzeit:
+        datum:
           type: string
         bemerkung:
           type: string
@@ -4651,8 +4919,8 @@ components:
               type: string
             url:
               type: string
-      x-tags:
-        - Verordnungen
+        zeit:
+          type: string
     Vitalzeichen:
       title: Vitalzeichen
       type: object
@@ -4742,19 +5010,21 @@ components:
     Epilepsie:
       title: Epilepsie
       type: object
+      x-tags:
+        - Epilepsie
       properties:
         klientId:
           type: string
         headId:
           type: string
-        datumzeit:
+        datum:
           type: string
         beschreibung:
           type: string
         typ:
           type: string
-      x-tags:
-        - Epilepsie
+        zeit:
+          type: string
     Hilfsmittel:
       title: Hilfsmittel
       type: object
@@ -5254,4 +5524,13 @@ components:
               type: string
       x-tags:
         - Medikamentenabgabe
+    AuthResponse:
+      title: AuthResponse
+      type: object
+      properties:
+        type:
+          type: string
+          description: "(1)'RESTful'-Default (2)'Okta Verify' "
+      x-tags:
+        - Benutzer
   securitySchemes: {}
