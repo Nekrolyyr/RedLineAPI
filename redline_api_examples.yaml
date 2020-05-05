@@ -3029,6 +3029,8 @@ paths:
                     data:
                       - klientId: '1'
                         headId: '1'
+                        datum: '2020-12-01'
+                        zeit: '15:00:00'
                         gewicht: 74kg
                         groesse: 178cm
                         temparatur: ''
@@ -3043,6 +3045,8 @@ paths:
                         bemerkungen: ''
                       - klientId: '1'
                         headId: '2'
+                        datum: '2020-11-16'
+                        zeit: '15:00:00'
                         gewicht: ''
                         groesse: ''
                         temparatur: '37.5'
@@ -3057,6 +3061,8 @@ paths:
                         bemerkungen: ''
                       - klientId: '1'
                         headId: '3'
+                        datum: '2020-11-01'
+                        zeit: '15:00:00'
                         gewicht: ''
                         groesse: ''
                         temparatur: ''
