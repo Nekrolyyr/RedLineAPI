@@ -4553,8 +4553,10 @@ components:
                       type: string
                 eintritt:
                   type: string
+                  x-flexType: date
                 austritt:
                   type: string
+                  x-flexType: date
             daten:
               type: object
               x-flexClass: RedlineKlientDatenRMO
@@ -4569,6 +4571,7 @@ components:
                   type: string
                 gebdatum:
                   type: string
+                  x-flexType: date
                 zivilstand:
                   type: object
                   x-flexType: ref
@@ -4635,6 +4638,7 @@ components:
               properties:
                 datum:
                   type: string
+                  x-flexType: date
                 ablage:
                   type: string
                 nutungsrechte:
@@ -4832,6 +4836,7 @@ components:
               type: string
       x-tags:
         - Klient
+
     Klientenumfeld:
       title: Klientenumfeld
       type: object
@@ -4840,25 +4845,38 @@ components:
         data:
           type: array
           items:
-            type: object
-            properties:
-              headId:
-                type: string
-              kategorieId:
-                type: string
-              kategorie:
-                type: string
-              istNofallkontakt:
-                type: boolean
-              istProfilkontakt:
-                type: boolean
-              adresse:
-                $ref: '#/components/schemas/Adresse'
+            $ref: '#/components/schemas/Umfeldadresse'
       x-tags:
         - Klient
+
+    Umfeldadresse:
+      type: object
+      x-flexClass: RedlineKlientUmfeldadresseRMO
+      properties:
+        model:
+          type: object
+          properties:
+            headId:
+              type: string
+            kategorie:
+              type: object
+              x-flexType: ref
+              properties:
+                headId:
+                  type: string
+                label:
+                  type: string
+            istNofallkontakt:
+              type: boolean
+            istProfilkontakt:
+              type: boolean
+            adresse:
+              $ref: '#/components/schemas/Adresse'
+
     Adresse:
       title: Adresse
       type: object
+      x-flexClass: RedlineAdresseRMO
       description: Adresse und Kontaktdaten einer Umfeldsperson
       x-tags:
         - Klient

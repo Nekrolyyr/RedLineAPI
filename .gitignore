@@ -1,0 +1,7 @@
+.idea/
+.idea/*
+.cache/
+vendor/
+composer.lock
+Tests/Cache/
+IntegrationTests/Var/Redline/IntegrationTest/
