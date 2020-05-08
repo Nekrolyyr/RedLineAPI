@@ -2797,60 +2797,66 @@ paths:
                 example-1:
                   value:
                     data:
-                      - headId: '1'
-                        kategorieId: '1'
-                        kategorie: Mutter
-                        istNofallkontakt: true
-                        istProfilkontakt: true
-                        adresse:
-                          headId: string
-                          nachname: Mutter
-                          vorname: Test
-                          tel1: 081 000 00 00
-                          tel2: ''
-                          mobil: ''
-                          email: mutter@gmail.com
-                          erreichbarkeit: string
-                          strasse: string
-                          plz: string
-                          ort: string
-                          firmabehoerde: string
-                      - headId: '2'
-                        kategorieId: '1'
-                        kategorie: Vater
-                        istNofallkontakt: true
-                        istProfilkontakt: true
-                        adresse:
-                          headId: string
-                          nachname: Vater
-                          vorname: Test
-                          tel1: 000 111 02 02
-                          tel2: 0043 1235 456 88
-                          mobil: 079 925 56 56
-                          email: null
-                          erreichbarkeit: string
-                          strasse: string
-                          plz: string
-                          ort: string
-                          firmabehoerde: string
-                      - headId: '3'
-                        kategorieId: '1'
-                        kategorie: Nachbar
-                        istNofallkontakt: false
-                        istProfilkontakt: false
-                        adresse:
-                          headId: string
-                          nachname: string
-                          vorname: string
-                          tel1: null
-                          tel2: ''
-                          mobil: ''
-                          email: nachbar@gmail.com
-                          erreichbarkeit: string
-                          strasse: string
-                          plz: string
-                          ort: string
-                          firmabehoerde: string
+                      - model:
+                          headId: '1'
+                          kategorie:
+                            headId: '1'
+                            label: Mutter
+                          istNofallkontakt: true
+                          istProfilkontakt: true
+                          adresse:
+                            headId: string
+                            nachname: Mutter
+                            vorname: Test
+                            tel1: 081 000 00 00
+                            tel2: ''
+                            mobil: ''
+                            email: mutter@gmail.com
+                            erreichbarkeit: string
+                            strasse: string
+                            plz: string
+                            ort: string
+                            firmabehoerde: string
+                      - model:
+                          headId: '2'
+                          kategorie:
+                            headId: '1'
+                            label: Vater
+                          istNofallkontakt: true
+                          istProfilkontakt: true
+                          adresse:
+                            headId: string
+                            nachname: Vater
+                            vorname: Test
+                            tel1: 000 111 02 02
+                            tel2: 0043 1235 456 88
+                            mobil: 079 925 56 56
+                            email: null
+                            erreichbarkeit: string
+                            strasse: string
+                            plz: string
+                            ort: string
+                            firmabehoerde: string
+                      - model:
+                          headId: '3'
+                          kategorie:
+                            headId: '1'
+                            label: Nachbar
+                          istNofallkontakt: false
+                          istProfilkontakt: false
+                          adresse:
+                            headId: string
+                            nachname: string
+                            vorname: string
+                            tel1: null
+                            tel2: ''
+                            mobil: ''
+                            email: nachbar@gmail.com
+                            erreichbarkeit: string
+                            strasse: string
+                            plz: string
+                            ort: string
+                            firmabehoerde: string
       operationId: get-v1-bereich-bereichId-klient-klientId-umfeld
   /v1/verordnungen:
     get:
