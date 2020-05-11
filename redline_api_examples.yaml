@@ -726,6 +726,33 @@ paths:
                           fileCollectionInfo: null
                           isReminder: false
                       - model:
+                          headId: '12568'
+                          headUpdateDate: '2020-04-28T12:15:50Z'
+                          datum: '2020-03-26'
+                          datumAb: '2020-03-26'
+                          datumBis: null
+                          zeit: '12:15:00'
+                          zeitVon: null
+                          zeitBis: null
+                          name: ''
+                          text: Test Eintrag
+                          kategorie: ',7,'
+                          terminart: ''
+                          klient:
+                            headId: '23'
+                            label: Betschard Beat
+                            kuerzel: null
+                          betreuer:
+                            headId: '1'
+                            label: Binotto Beat
+                            kuerzel: RT
+                          link: null
+                          linkTable: null
+                          linkInfo: null
+                          fileCollection: null
+                          fileCollectionInfo: null
+                          isReminder: false
+                      - model:
                           headId: '737'
                           headUpdateDate: '2018-12-14T15:35:23Z'
                           datum: '2020-03-26'
@@ -4842,7 +4869,6 @@ components:
               type: string
       x-tags:
         - Klient
-
     Klientenumfeld:
       title: Klientenumfeld
       type: object
@@ -4854,7 +4880,6 @@ components:
             $ref: '#/components/schemas/Umfeldadresse'
       x-tags:
         - Klient
-
     Umfeldadresse:
       type: object
       x-flexClass: RedlineKlientUmfeldadresseRMO
@@ -4878,7 +4903,6 @@ components:
               type: boolean
             adresse:
               $ref: '#/components/schemas/Adresse'
-
     Adresse:
       title: Adresse
       type: object
