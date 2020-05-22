@@ -2212,6 +2212,226 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/MedikamentCollection'
+              examples:
+                example-1:
+                  value:
+                    data:
+                      - model:
+                          headId: '1'
+                          name: ASPIRIN Tabl 500 mg Erw
+                          beschreibung: ASPIRIN Tabl 500 mg Erw
+                          gTIN: null
+                          pharmacode: null
+                          verabreichungsform:
+                            headId: '27'
+                            label: Drageés
+                          image:
+                            headId: 21_img635814045094439267.jpg
+                            url: 'https://betatest.servline.ch/redline_test/index.php/Redline/Demo/Rest//v1/def/medikament/../../../../Res/FileBase/RedlineMedikamentDefFile/21_img635814045094439267.jpg?Type=Download'
+                      - model:
+                          headId: '2'
+                          name: SARIDON N forte Filmtabl 400 mg
+                          beschreibung: ''
+                          gTIN: null
+                          pharmacode: null
+                          verabreichungsform:
+                            headId: '26'
+                            label: Tabletten
+                          image:
+                            headId: 22_img635814044698092776.jpg
+                            url: 'https://betatest.servline.ch/redline_test/index.php/Redline/Demo/Rest//v1/def/medikament/../../../../Res/FileBase/RedlineMedikamentDefFile/22_img635814044698092776.jpg?Type=Download'
+                      - model:
+                          headId: '3'
+                          name: VOLTAREN Dispersible Tabl 50 mg
+                          beschreibung: ''
+                          gTIN: null
+                          pharmacode: null
+                          verabreichungsform:
+                            headId: '26'
+                            label: Tabletten
+                          image:
+                            headId: 47_VOLTAREN Dispersible Tabl 50 mg.png
+                            url: 'https://betatest.servline.ch/redline_test/index.php/Redline/Demo/Rest//v1/def/medikament/../../../../Res/FileBase/RedlineMedikamentDefFile/47_VOLTAREN%20Dispersible%20Tabl%2050%20mg.png?Type=Download'
+                      - model:
+                          headId: '4'
+                          name: SARIDON N Filmtabl 200 mg
+                          beschreibung: ''
+                          gTIN: null
+                          pharmacode: null
+                          verabreichungsform:
+                            headId: '26'
+                            label: Tabletten
+                          image:
+                            headId: 24_img635814044173574420.jpg
+                            url: 'https://betatest.servline.ch/redline_test/index.php/Redline/Demo/Rest//v1/def/medikament/../../../../Res/FileBase/RedlineMedikamentDefFile/24_img635814044173574420.jpg?Type=Download'
+                      - model:
+                          headId: '5'
+                          name: SPIRALGIN Filmtabl 500 mg
+                          beschreibung: ''
+                          gTIN: null
+                          pharmacode: null
+                          verabreichungsform:
+                            headId: '26'
+                            label: Tabletten
+                          image:
+                            headId: 48_SPIRALGIN Filmtabl 500 mg.png
+                            url: 'https://betatest.servline.ch/redline_test/index.php/Redline/Demo/Rest//v1/def/medikament/../../../../Res/FileBase/RedlineMedikamentDefFile/48_SPIRALGIN%20Filmtabl%20500%20mg.png?Type=Download'
+                      - model:
+                          headId: '6'
+                          name: RITALIN LA Kaps 30 mg
+                          beschreibung: ''
+                          gTIN: null
+                          pharmacode: null
+                          verabreichungsform:
+                            headId: '26'
+                            label: Tabletten
+                          image:
+                            headId: 57_RITALIN LA Kaps 30 mg.png
+                            url: 'https://betatest.servline.ch/redline_test/index.php/Redline/Demo/Rest//v1/def/medikament/../../../../Res/FileBase/RedlineMedikamentDefFile/57_RITALIN%20LA%20Kaps%2030%20mg.png?Type=Download'
+                      - model:
+                          headId: '7'
+                          name: RITALIN LA Kaps 40 mg
+                          beschreibung: ''
+                          gTIN: null
+                          pharmacode: null
+                          verabreichungsform:
+                            headId: '26'
+                            label: Tabletten
+                          image:
+                            headId: 27_img635819228952922237.jpg
+                            url: 'https://betatest.servline.ch/redline_test/index.php/Redline/Demo/Rest//v1/def/medikament/../../../../Res/FileBase/RedlineMedikamentDefFile/27_img635819228952922237.jpg?Type=Download'
+                      - model:
+                          headId: '8'
+                          name: PONSTAN Kaps 250 mg
+                          beschreibung: ''
+                          gTIN: null
+                          pharmacode: null
+                          verabreichungsform:
+                            headId: '26'
+                            label: Tabletten
+                          image:
+                            headId: 55_PONSTAN Kaps 250 mg03061031.png
+                            url: 'https://betatest.servline.ch/redline_test/index.php/Redline/Demo/Rest//v1/def/medikament/../../../../Res/FileBase/RedlineMedikamentDefFile/55_PONSTAN%20Kaps%20250%20mg03061031.png?Type=Download'
+                      - model:
+                          headId: '9'
+                          name: TRIOFAN Allergie Lutschtabl (iH 04/15)
+                          beschreibung: ''
+                          gTIN: null
+                          pharmacode: null
+                          verabreichungsform:
+                            headId: '30'
+                            label: Andere
+                          image:
+                            headId: 51_15).png
+                            url: 'https://betatest.servline.ch/redline_test/index.php/Redline/Demo/Rest//v1/def/medikament/../../../../Res/FileBase/RedlineMedikamentDefFile/51_15%29.png?Type=Download'
+                      - model:
+                          headId: '10'
+                          name: 'PREVALIN Nasenspray '
+                          beschreibung: ''
+                          gTIN: null
+                          pharmacode: null
+                          verabreichungsform:
+                            headId: '30'
+                            label: Andere
+                          image:
+                            headId: 43_image.png
+                            url: 'https://betatest.servline.ch/redline_test/index.php/Redline/Demo/Rest//v1/def/medikament/../../../../Res/FileBase/RedlineMedikamentDefFile/43_image.png?Type=Download'
+                      - model:
+                          headId: '11'
+                          name: AMOXI Mepha Lactabs 750 mg
+                          beschreibung: ''
+                          gTIN: null
+                          pharmacode: null
+                          verabreichungsform:
+                            headId: '26'
+                            label: Tabletten
+                          image:
+                            headId: 31_img635819234772515932.jpg
+                            url: 'https://betatest.servline.ch/redline_test/index.php/Redline/Demo/Rest//v1/def/medikament/../../../../Res/FileBase/RedlineMedikamentDefFile/31_img635819234772515932.jpg?Type=Download'
+                      - model:
+                          headId: '12'
+                          name: MEBUCAÏNE f Lutschtabl mint
+                          beschreibung: ''
+                          gTIN: null
+                          pharmacode: null
+                          verabreichungsform:
+                            headId: '27'
+                            label: Drageés
+                          image:
+                            headId: 32_img635819235593745167.jpg
+                            url: 'https://betatest.servline.ch/redline_test/index.php/Redline/Demo/Rest//v1/def/medikament/../../../../Res/FileBase/RedlineMedikamentDefFile/32_img635819235593745167.jpg?Type=Download'
+                      - model:
+                          headId: '13'
+                          name: ALCA C Brausetabl
+                          beschreibung: ''
+                          gTIN: null
+                          pharmacode: null
+                          verabreichungsform:
+                            headId: '26'
+                            label: Tabletten
+                          image:
+                            headId: 33_img635819236305097918.jpg
+                            url: 'https://betatest.servline.ch/redline_test/index.php/Redline/Demo/Rest//v1/def/medikament/../../../../Res/FileBase/RedlineMedikamentDefFile/33_img635819236305097918.jpg?Type=Download'
+                      - model:
+                          headId: '14'
+                          name: NEOCITRAN Grippe Erkältung Plv Erw
+                          beschreibung: ''
+                          gTIN: null
+                          pharmacode: null
+                          verabreichungsform:
+                            headId: '30'
+                            label: Andere
+                          image:
+                            headId: 44_image.png
+                            url: 'https://betatest.servline.ch/redline_test/index.php/Redline/Demo/Rest//v1/def/medikament/../../../../Res/FileBase/RedlineMedikamentDefFile/44_image.png?Type=Download'
+                      - model:
+                          headId: '15'
+                          name: Ritalin 10mg
+                          beschreibung: ''
+                          gTIN: null
+                          pharmacode: null
+                          verabreichungsform:
+                            headId: '26'
+                            label: Tabletten
+                          image:
+                            headId: 35_ritalin.jpg
+                            url: 'https://betatest.servline.ch/redline_test/index.php/Redline/Demo/Rest//v1/def/medikament/../../../../Res/FileBase/RedlineMedikamentDefFile/35_ritalin.jpg?Type=Download'
+                      - model:
+                          headId: '16'
+                          name: Johanniskraut
+                          beschreibung: Bei Verstimmungszuständen
+                          gTIN: null
+                          pharmacode: null
+                          verabreichungsform:
+                            headId: '30'
+                            label: Andere
+                          image:
+                            headId: 58_Johanniskraut15071504.png
+                            url: 'https://betatest.servline.ch/redline_test/index.php/Redline/Demo/Rest//v1/def/medikament/../../../../Res/FileBase/RedlineMedikamentDefFile/58_Johanniskraut15071504.png?Type=Download'
+                      - model:
+                          headId: '17'
+                          name: Ritalin 30mg
+                          beschreibung: ''
+                          gTIN: null
+                          pharmacode: null
+                          verabreichungsform:
+                            headId: '26'
+                            label: Tabletten
+                          image:
+                            headId: 37_img635833900325321226.jpg
+                            url: 'https://betatest.servline.ch/redline_test/index.php/Redline/Demo/Rest//v1/def/medikament/../../../../Res/FileBase/RedlineMedikamentDefFile/37_img635833900325321226.jpg?Type=Download'
+                      - model:
+                          headId: '18'
+                          name: Algifor forte
+                          beschreibung: "AMZV\r\nZusammensetzung\r\nWirkstoff: Ibuprofenum.\r\nHilfsstoffe: Excipiens pro compr. obducto.\r\nGalenische Form und Wirkstoffmenge pro Einheit\r\nAlgifor: 1 Filmtablette enthält 200 mg Ibuprofen.\r\nAlgifor forte: 1 Filmtablette enthält 400 mg Ibuprofen.\r\nIndikationen/Anwendungsmöglichkeiten\r\nAlgifor und Algifor forte sind in der Selbstmedikation für die Kurzzeitbehandlung von maximal 3 Tagen und folgende Indikationen zugelassen:\r\nSchmerzen im Bereich von Gelenken und Bändern;\r\nRückenschmerzen;\r\nKopfschmerzen;\r\nZahnschmerzen;\r\nMenstruationsschmerzen;\r\nSchmerzen nach Verletzungen;\r\nFieber bei grippalen Erkrankungen.\r\nDosierung/Anwendung\r\nErwachsene und Kinder ab 12 Jahren\r\nAlgifor\r\nEinzeldosis: 1\x962 Filmtabletten.\r\nAbstand zwischen 2 Einnahmen: 4 bis 6 Stunden.\r\nMaximaldosis in der Selbstmedikation: 6 Filmtabletten Algifor (= 1200 mg Ibuprofen) pro Tag.\r\nAlgifor forte\r\nEinzeldosis: 1 Filmtablette.\r\nAbstand zwischen 2 Einnahmen: 4 bis 6 Stunden.\r\nMaximaldosis in der Selbstmedikation: 3 Filmtabletten Algifor forte (= 1200 mg Ibuprofen) pro Tag.\r\nOhne ärztliche Verschreibung sind Algifor und Algifor forte für die Kurzzeitbehandlung von maximal 3 Tagen bestimmt.\r\nDie Filmtabletten mit genug Flüssigkeit einnehmen.\r\nKinder unter 12 Jahren\r\nDie Anwendung und Sicherheit von Algifor und Algifor forte bei Kindern unter 12 Jahren sind bisher nicht geprüft worden.\r\nKontraindikationen\r\nÜberempfindlichkeit gegenüber dem Wirkstoff oder einem der Hilfsstoffe gemäss Zusammensetzung.\r\nAnamnese von Bronchospasmus, Urtikaria oder allergieähnlichen Symptomen nach Einnahme von Acetylsalicylsäure oder anderen nicht-steroïdalen Antirheumatika.\r\nDrittes Trimenon der Schwangerschaft (siehe «Schwangerschaft/Stillzeit»).\r\nAktive Magen- und/oder Duodenalulcera oder gastrointestinale Blutungen.\r\nEntzündliche Darmerkrankungen (wie M. Crohn oder Colitis ulcerosa).\r\nSchwere Leberfunktionsstörungen (Leberzirrhose und Aszites).\r\nSchwere Niereninsuffizienz (Kreatinin-Clearance <30 ml/min)\r\nSchwere Herzinsuffizienz (NYHA III\x96IV).\r\nBehandlung postoperativer Schmerzen nach einer koronaren Bypass-Operation (resp. Einsatz einer Herz-Lungen-Maschine).\r\nWarnhinweise und Vorsichtsmassnahmen\r\nAllgemeiner Warnhinweis für die Anwendung von systemischen nichtsteroidalen Antirheumatika\r\nGastrointestinale Ulzerationen, Blutungen oder Perforationen können während der Behandlung mit nichtsteroidalen Antirheumatika (NSAR), COX-2 selektiv oder nicht, jederzeit auch ohne Warnsymptome oder anamnestische Hinweise auftreten. Um dieses Risiko zu verringern, sollte die kleinste wirksame Dosis während der kürzest möglichen Therapiedauer verabreicht werden.\r\nFür gewisse selektive COX-2-Hemmer wurde in Placebo-kontrollierten Studien ein erhöhtes Risiko für thrombotische kardio- und zerebrovaskuläre Komplikationen gezeigt. Es ist noch nicht bekannt, ob dieses Risiko direkt mit der COX-1/COX-2-Selektivität der einzelnen NSAR korreliert. Da für Ibuprofen zur Zeit keine vergleichbaren klinischen Studiendaten unter maximaler Dosierung und Langzeittherapie vorliegen, kann ein ähnlich erhöhtes Risiko nicht ausgeschlossen werden. Bis zum Vorliegen von entsprechenden Daten sollte Ibuprofen bei klinisch gesicherter koronarer Herzkrankheit, zerebrovaskulären Erkrankungen, peripherer arterieller Verschlusskrankheit oder bei Patienten mit erheblichen Risikofaktoren (z.B. Bluthochdruck, Hyperlipidämie, Diabetes mellitus, Rauchen) nur nach sorgfältiger Nutzen-Risiko-Abwägung eingesetzt werden. Auch wegen diesem Risiko sollte die kleinste wirksame Dosis während der kürzest möglichen Therapiedauer verabreicht werden.\r\nDie renalen Effekte der NSAR umfassen Flüssigkeitsretention mit Ödemen und/oder arterieller Hypertonie. Bei Patienten mit beeinträchtiger Herzfunktion und anderen Zuständen, die zur Flüssigkeitsretention prädisponieren, sollte Ibuprofen deshalb nur mit Vorsicht angewendet werden. Vorsicht ist ebenfalls geboten bei Patienten, die gleichzeitig Diuretika oder ACE-Hemmer einnehmen sowie bei erhötem Risiko einer Hypovolämie.\r\nIn folgenden Situationen ist Vorsicht geboten bzw. darf Algifor/Algifor forte nur gemäss ärztlicher Verschreibung und unter ärztlicher Überwachung eingenommen werden:\r\nBei Patienten in hohem Alter ist aus grundsätzlichen medizinischen Überlegungen Vorsicht geboten. Vor allem wird empfohlen, bei gebrechlichen älteren Patienten oder solchem mit einem niedrigen Körpergewicht die niedrigste wirksame Dosierung zu verwenden.\r\nBei Patienten, die an Asthma bronchiale leiden oder früher daran gelitten haben, kann durch Ibuprofen ein Bronchospasmus ausgelöst werden.\r\nBei Niereninsuffizienz.\r\nBei Herzinsuffizienz.\r\nBei Leberfunktionsstörungen oder Leberinsuffizienz.\r\nHämatologische Effekte: wie andere nichtsteroidale Entzündungshemmer kann Ibuprofen die Thrombozytenaggregation verringern und die Blutungszeit verlängern.\r\nInteraktionen\r\nAndere nichtsteroidale Antiphlogistika und/oder Glukokortikoide sowie Alkohol: Verstärkung der gastrointestinalen Nebenwirkungen, erhöhtes Risiko von Magen-Darm-Blutungen.\r\nSalicylsäure verdrängt Ibuprofen aus der Eiweissbindung.\r\nProbenecid, Sulfinpyrazon: Verzögerte Ibuprofen-Ausscheidung, die urikosurische Wirkung von Probenecid und Sulfinpyrazon wird abgeschwächt.\r\nOrale Antikoagulantien: In Analogie zu anderen nichtsteroidalen Antiphlogistika ist eine erhöhte Blutungsgefahr nicht auszuschliessen.\r\nOrale Antidiabetika: Die Wirkung von oralen Antidiabetika (Sulfonylharnstoffen) kann durch Ibuprofen wie andere NSAR verstärkt werden und das Risiko von Hypoglykämien erhöhen. Der Blutzuckerspiegel sollte regelmässig kontrolliert und die Dosis der Antidiabetika allenfalls angepasst werden.\r\nDiuretika, Antihypertensiva: Mit einer Abschwächung der Wirksamkeit von Diuretika und Antihypertensiva muss gerechnet werden.\r\nHistamin H2-Antagonisten: Eine klinisch bedeutungsvolle Interaktion von Ibuprofen mit Cimetidin oder Ranitidin ist nicht erwiesen.\r\nDigoxin: Die Plasmakonzentration von Digoxin kann erhöht werden.\r\nPhenytoin: Die Plasmakonzentration von Phenytoin kann erhöht werden.\r\nLithium: Es wird empfohlen die Plasmakonzentration von Lithium besonders zu kontrollieren.\r\nMethotrexat: Erhöhte Methotrexat-Toxizität.\r\nBaclofen: Erhöhte Baclofen-Toxizität.\r\nChinolone: Die zentrale Wirkung ist erhöht.\r\nCiclosporin: Die nierenschädigende Wirkung kann erhöht sein.\r\nSchwangerschaft/Stillzeit\r\nSchwangerschaft\r\nEine Hemmung der Prostaglandinsynthese kann die Schwangerschaft und/oder die embryo-fetale Entwicklung negativ beeinflussen. Daten aus epidemiologischen Studien weisen auf ein erhöhtes Risiko für Fehlgeburten sowie kardiale Missbildungen und Gastroschisis nach der Anwendung eines Prostaglandinsynthesehemmers in der Frühschwangerschaft hin. Es wird angenommen, dass das Risiko mit der Dosis und der Dauer der Therapie steigt.\r\nBei Tieren wurde nachgewiesen, dass die Gabe eines Prostaglandinsynthesehemmers zu erhöhtem prä- und post-implantärem Verlust und zu embryofetaler Letalität führt. Ferner wurden erhöhte Inzidenzen verschiedener Missbildungen, einschliesslich kardiovaskulärer Missbildungen, bei Tieren berichtet, die während der Phase der Organogenese einen Prostaglandinsynthesehemmer erhielten.\r\nWährend des ersten und zweiten Schwangerschaftstrimesters sollte Ibuprofen nur gegeben werden, wenn dies unbedingt notwendig ist. Falls Ibuprofen von einer Frau angewendet wird, die versucht schwanger zu werden oder wenn es während des ersten oder zweiten Schwangerschaftstrimesters angewendet wird, sollte die Dosis so niedrig und die Behandlungsdauer so kurz wie möglich gehalten werden.\r\nWährend des dritten Schwangerschaftstrimesters ist Ibuprofen kontraindiziert. Alle Prostaglandinsynthesehemmer können:\r\nden Fetus folgenden Risiken aussetzen:\r\n\x96 kardiopulmonale Toxizität (mit vorzeitigem Verschluss des Ductus arteriosus und pulmonaler Hypertonie);\r\nNierenfunktionsstörung, die zu Nieren Versagen mit Oligohydramniose fortschreiten.\r\nMutter und Kind folgenden Risiken aussetzen:\r\n\x96 mögliche Verlängerung der Blutungszeit, ein Thrombozyten-aggregationshemmender Effekt, der selbst bei sehr geringen Dosen auftreten kann;\r\n\x96 Hemmung von Uteruskontraktionen, mit der Folge eines verspäteten oder verlängerten Geburtsvorganges.\r\nFertilität\r\nDie Anwendung von Ibuprofen kann die weibliche Fertilität beeinträchtigen und wird daher bei Frauen, die schwanger werden möchten nicht empfohlen. Bei Frauen, die Schwierigkeiten haben schwanger zu werden oder bei denen Untersuchungen zur Infertilität durchgeführt werden, sollte das Absetzen von Ibuprofen in Betracht gezogen werden.\r\nStillzeit\r\nNSAR treten in die Muttermilch über. Vorsichtshalber soll Ibuprofen deshalb von stillenden Frauen nicht eingenommen werden. Ist die Behandlung unerlässlich, ist der Säugling auf Flaschennahrung umzustellen.\r\nWirkung auf die Fahrtüchtigkeit und auf das Bedienen von Maschinen\r\nAlgifor und Algifor forte können das Reaktionsvermögen verändern, so dass die Fahrtüchtigkeit oder die Fähigkeit Maschinen zu bedienen beeinträchtigt werden können (siehe Kapitel «Unerwünschte Wirkungen»).\r\nUnerwünschte Wirkungen\r\nHäufigkeiten: Sehr häufig (>1/10), häufig (>1/100, <1/10), gelegentlich (>1/1000, <1/100), selten (>1/10\x92000, <1/1000), sehr selten (<1/10\x92000).\r\nGastrointestinale Störungen\r\nHäufig: Übelkeit, Völlegefühl, Sodbrennen, Magenschmerzen, Diarrhö, Obstipation, erosive Gastritis.\r\nGelegentlich: Erbrechen, okkulte Blutverluste (bis zur Anämie).\r\nSehr selten: Peptische Geschwüre mit oder ohne Blutungen oder Perforationen.\r\nBlut- und Lymphsystem\r\nSehr selten: Blutbildveränderungen wie Agranulozytose, Thrombozytopenie, Neutropenie, aplastische Anämie, autoimmunhämolytische Anämie.\r\nImmunsystem\r\nSehr selten: Schwere Überempfindlichkeitsreaktionen inkl. Angioödem mit Atemwegsverschluss, Bronchospasmen und Blutdruckabfall bis zum anaphylaktischen Schock. Vereinzelte Fallberichte über aseptische Meningitis unter Ibuprofen, bei Patienten mit Autoimmunkrankheiten wie Lupus erythematodes.\r\nPsychiatrische Störungen\r\nSehr selten: Psychotische Erscheinungen, Depressionen, Angstzustände, Verwirrtheitszustände.\r\nNervensystem\r\nHäufig: Kopfschmerzen.\r\nGelegentlich: Schwindel, Schläfrigkeit, Asthenie.\r\nAugen\r\nSehr selten: Sehstörungen, toxische Amblyopie, Optikusneuritis.\r\nOhr und Innenohr\r\nSehr selten: Ohrensausen, Schwerhörigkeit.\r\nHerz und Gefässe\r\nSehr selten: Exacerbation arterieller Hypertonie oder Herzinsuffizienz mit Gefahr eines akuten Lungenödems bei herzinsuffizienten Patienten.\r\nAtmungsorgane\r\nGelegentlich: Asthmaanfall, besonders bei entsprechender Vorgeschichte.\r\nLeber und Galle\r\nSehr selten: Leberfunktionsstörungen.\r\nHaut\r\nGelegentlich: Urtikaria, Purpura, Juckreiz, Hautausschläge.\r\nSehr selten: Stevens-Johnson-Syndrom, nekrotisierende Fasciitis, toxische epidermale Nekrolyse.\r\nNieren und Harnwege\r\nGelegentlich: Nierenfunktionsstörungen mit Ödembildung.\r\nSehr selten: Nierenpapillennekrosen, interstitielle Nephritis.\r\nÜberdosierung\r\nHäufige leichte Symptome einer Überdosierung sind Übelkeit, Erbrechen, Schwindel, Schläfrigkeit, Tremor; seltener sind Kopfschmerzen, Tinnitus, Ataxie, Tachykardie, Miosis und reversibler Anstieg der Transaminasen und des Bilirubins sowie Thrombopenie.\r\nSchwere Symptome sind selten und umfassen Bewusstlosigkeit (Koma), metabolische Azidose, Krampfanfälle und akute Niereninsuffizienz; bei Kindern <2 Jahren auch Apnoe.\r\nAb 400 mg/kg sind schwere Symptome möglich, obwohl bis 60 g problemlos vertragen und bis 100 g überlebt wurden. Bei älteren Personen, Kleinkindern, Leber- oder Nierenerkrankungen und chronischem Alkoholabusus kann es bereits bei tieferen Dosen zu schweren Symptomen kommen.\r\nAb einer Dosis >200 mg/kg (Kleinkind) oder 20 g (Erwachsene) Dekontamination mit Aktivkohle (1 g pro kg Körpergewicht als wässrige Suspension einmalig per os). Bei exzessiver Überdosis stattdessen Magenspülung gefolgt von Aktivkohle innert 1 Stunde nach Einnahme. Ärztliche Überwachung ab 300 mg/kg und bei allen Patienten mit erhöhtem Risiko. Dauer der Überwachung: 4 Stunden, bei retardierten Präparaten 12 Stunden. Laborkontrollen: Transaminasen, Kreatinin, Bilirubin; bei symptomatischen Patienten zusätzlich Blutgasanalyse, Elektrolyte, Thrombozyten.\r\nEigenschaften/Wirkungen\r\nATC-Code: M01AE01\r\nAlgifor und Algifor forte besitzen analgetische, antipyretische und entzündungshemmende Eigenschaften.\r\nIbuprofen hat eine ausgeprägte Hemmwirkung auf die Prostaglandin-Synthese, was seine analgetische und antiphlogistische Wirkung erklärt.\r\nAuf demselben Mechanismus beruhen die therapeutisch nicht genutzte Thrombozytenaggregationshemmung und die ulzerogene Wirkung, die Natrium- und Wasserretention sowie bronchospastische Reaktionen als mögliche unerwünschte Wirkungen.\r\nPharmakokinetik\r\nMaximale Wirkstoffkonzentrationen von durchschnittlich 15 bzw. 25 mg/l werden im Serum 1\x962 Stunden nach oraler Zufuhr von 200 resp. 400 mg Ibuprofen erreicht.\r\nWird es nach dem Essen genommen, ist die Resorption, die vor allem im Dünndarm erfolgt, langsamer und die Serumkonzentrationen sind tiefer. Die Serumhalbwertszeit beträgt 1,5\x962,5 Std.\r\nDie Eiweissbindung beträgt ca. 99%.\r\nIbuprofen wird in den Leber metabolisiert und rasch durch die Nieren vor allem in Form von inaktiven Metaboliten, ausgeschieden. Eine Kumulation findet auch bei mehrmaliger Gabe nicht statt. Ibuprofen oder seine Metaboliten sind 24 Stunden nach der letzten Dosis praktisch vollständig ausgeschieden.\r\nPräklinische Daten\r\nEs sind keine für die Anwendung relevanten präklinischen Daten vorhanden.\r\nSonstige Hinweise\r\nHaltbarkeit\r\nDas Arzneimittel darf nur bis zu dem auf dem Behälter mit «EXP» bezeichneten Datum verwendet werden.\r\nBesondere Lagerungshinweise\r\nBei Raumtemperatur (15\x9625 °C) lagern. Das Arzneimittel ist ausserhalb der Reichweite von Kindern aufzubewahren.\r\nHinweise für die Handhabung\r\nAlgifor forte Tabletten sind nicht zur Anwendung einer halben Dosis durch teilen geeignet.\r\nZulassungsnummer\r\n50411, 54623 (Swissmedic).\r\nZulassungsinhaberin\r\nVifor Consumer Health SA, Villars-sur-Glâne.\r\nStand der Information\r\nOktober 2010."
+                          gTIN: null
+                          pharmacode: null
+                          verabreichungsform:
+                            headId: '26'
+                            label: Tabletten
+                          image:
+                            headId: 56_Algifor forte03061045.png
+                            url: 'https://betatest.servline.ch/redline_test/index.php/Redline/Demo/Rest//v1/def/medikament/../../../../Res/FileBase/RedlineMedikamentDefFile/56_Algifor%20forte03061045.png?Type=Download'
   '/v1/def/medikament/{medikamentDefId}':
     parameters:
       - name: medikamentDefId
@@ -2912,6 +3132,8 @@ paths:
                         wann: präabends
                         istErledigbar: true
                         verordner: Dr. Who
+                        istMedVerordnung: true
+                        istPflegeVerordnung: false
                       - klientId: '2'
                         headId: '2'
                         verordnung: Wunde desinfizieren
@@ -2923,6 +3145,8 @@ paths:
                         wann: vormittags
                         istErledigbar: false
                         verordner: Dr. House
+                        istMedVerordnung: false
+                        istPflegeVerordnung: true
       operationId: get-v1-verordnungen
       parameters:
         - schema:
@@ -3913,10 +4137,9 @@ components:
           items:
             $ref: '#/components/schemas/Message'
         details:
-          type: object
-          properties:
-            details:
-              type: string
+          type: array
+          items:
+            type: string
     Ok-Response:
       type: object
       properties:
