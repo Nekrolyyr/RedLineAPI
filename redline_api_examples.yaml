@@ -4556,6 +4556,8 @@ components:
         - Journal
     Journaleintrag:
       type: object
+      x-tags:
+        - Journal
       properties:
         model:
           type: object
@@ -4568,12 +4570,8 @@ components:
               type: string
             kategorie:
               type: string
-            bereiche:
-              type: string
             klientId:
               type: string
-      x-tags:
-        - Journal
     Status-Response:
       type: object
       properties:
